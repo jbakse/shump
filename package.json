@@ -1,0 +1,20 @@
+{
+  "name": "shump",
+  "version": "0.0.0",
+  "description": "shump =====",
+  "main": "-",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbakse/shump.git"
+  },
+  "author": "",
+  "license": "Copyright 2014 Justin Bakse",
+  "readmeFilename": "README.md",
+  "gitHead": "703f06e6b3cd03f321c8d2d89deadf983161beb9",
+  "devDependencies": {
+    "three": "~0.66.2"
+  }
+}
