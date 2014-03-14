@@ -1,5 +1,5 @@
 (function() {
-  var Base, Level, World, level, world,
+  var Base, Input, Level, World, input, level, world,
     __slice = [].slice,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -58,6 +58,8 @@
 
     World.renderer = void 0;
 
+    World.clock = void 0;
+
     function World() {
       var h, w;
       w = 800;
@@ -68,11 +70,12 @@
       this.renderer = new THREE.CanvasRenderer();
       this.renderer.setSize(w, h);
       document.body.appendChild(this.renderer.domElement);
+      this.clock = new THREE.Clock();
       return this;
     }
 
     World.prototype.animate = function() {
-      this.trigger("update");
+      this.trigger("update", this.clock.getDelta());
       requestAnimationFrame((function(_this) {
         return function() {
           return _this.animate();
@@ -110,17 +113,67 @@
       this.root.add(this.mesh);
     }
 
-    Level.prototype.update = function() {
-      return this.mesh.rotation.x += .1;
+    Level.prototype.update = function(delta) {
+      if (input.keyStates['up']) {
+        this.mesh.position.y += 600 * delta;
+      }
+      if (input.keyStates['down']) {
+        this.mesh.position.y -= 600 * delta;
+      }
+      if (input.keyStates['left']) {
+        this.mesh.position.x -= 600 * delta;
+      }
+      if (input.keyStates['right']) {
+        return this.mesh.position.x += 600 * delta;
+      }
     };
 
     return Level;
 
   })();
 
+  Input = (function() {
+    Input.prototype.keyStates = {};
+
+    Input.prototype.keyMap = {
+      "38": "up",
+      "40": "down",
+      "37": "left",
+      "39": "right"
+    };
+
+    function Input() {
+      var key, value, _ref;
+      _ref = this.keyMap;
+      for (key in _ref) {
+        value = _ref[key];
+        this.keyStates[value] = false;
+      }
+      $(window).keydown((function(_this) {
+        return function(e) {
+          if (_this.keyMap[e.which]) {
+            return _this.keyStates[_this.keyMap[e.which]] = true;
+          }
+        };
+      })(this));
+      $(window).keyup((function(_this) {
+        return function(e) {
+          if (_this.keyMap[e.which]) {
+            return _this.keyStates[_this.keyMap[e.which]] = false;
+          }
+        };
+      })(this));
+    }
+
+    return Input;
+
+  })();
+
   world = new World();
 
   level = new Level();
+
+  input = new Input();
 
   world.scene.add(level.root);
 

@@ -21,7 +21,7 @@ class World extends Base
 	@camera: undefined
 	@scene: undefined
 	@renderer: undefined
-	
+	@clock: undefined
 
 	constructor: ->
 		w = 800
@@ -35,17 +35,18 @@ class World extends Base
 		@renderer.setSize w, h
 		document.body.appendChild @renderer.domElement
 
-		
+		@clock = new THREE.Clock()
 
 		return this
 
 	animate: ->
-		@trigger "update"		
+		@trigger "update", @clock.getDelta()	
 		requestAnimationFrame ()=> @animate()
 		@renderer.render @scene, @camera
 		return
 
 	start: ->
+		
 		@animate()
 
 class Level
@@ -64,14 +65,43 @@ class Level
 		@mesh = new THREE.Mesh(@geometry, @material)
 		@root.add @mesh
 
-	update: =>
-		@mesh.rotation.x += .1;
+	update: (delta)=>
+		if input.keyStates['up']
+			@mesh.position.y += 600 * delta;
+		if input.keyStates['down']
+			@mesh.position.y -= 600 * delta;
+		if input.keyStates['left']
+			@mesh.position.x -= 600 * delta;
+		if input.keyStates['right']
+			@mesh.position.x += 600 * delta;
 
+
+class Input
+	keyStates: {}
+	keyMap: 
+		"38":"up"
+		"40":"down"
+		"37":"left"
+		"39":"right"
+
+	constructor: ->
+		for key, value of @keyMap
+			@keyStates[value] = false;
+
+		$(window).keydown (e)=>
+			if @keyMap[e.which]
+				@keyStates[@keyMap[e.which]] = true;
+
+		$(window).keyup (e)=>
+			if @keyMap[e.which]
+				@keyStates[@keyMap[e.which]] = false;
+			
 
 world = new World();
 level = new Level();
+input = new Input();
 
 world.scene.add level.root
 world.on "update", level.update
-
+# world.on "update", ()-> console.log input.keyStates['up']
 world.start()
