@@ -27,7 +27,7 @@ class World extends Base
 		w = 800
 		h = 600
 		@camera = new THREE.PerspectiveCamera(75, w / h, 1, 10000)
-		@camera.position.z = 1000
+		@camera.position.z = 10
 		
 		@scene = new THREE.Scene()
 		
@@ -51,29 +51,35 @@ class World extends Base
 
 class Level
 	@root: undefined
-	@geometry: undefined
-	@material: undefined
+	# @geometry: undefined
+	# @material: undefined
 	@mesh: undefined
+	@ambientLight: undefined
 
 	constructor: ->
 		@root = new THREE.Object3D()
-		@geometry = new THREE.BoxGeometry(200, 200, 200)
-		@material = new THREE.MeshBasicMaterial(
-			color: 0xff0000
-			wireframe: true
-		)
-		@mesh = new THREE.Mesh(@geometry, @material)
-		@root.add @mesh
+
+		@ambientLight = new THREE.AmbientLight(0xffffff);
+		@root.add(@ambientLight);		
+		
+		jsonLoader = new THREE.JSONLoader();
+		jsonLoader.load "assets/ship.js", (geometry, materials)=>
+			console.log "load", geometry, materials,@material
+			material = new THREE.MeshFaceMaterial( materials )
+			@mesh = new THREE.Mesh(geometry, material)
+			@root.add @mesh
 
 	update: (delta)=>
+		# return if not mesh?
+
 		if input.keyStates['up']
-			@mesh.position.y += 600 * delta;
+			@mesh.position.y += 10 * delta;
 		if input.keyStates['down']
-			@mesh.position.y -= 600 * delta;
+			@mesh.position.y -= 10 * delta;
 		if input.keyStates['left']
-			@mesh.position.x -= 600 * delta;
+			@mesh.position.x -= 10 * delta;
 		if input.keyStates['right']
-			@mesh.position.x += 600 * delta;
+			@mesh.position.x += 10 * delta;
 
 
 class Input

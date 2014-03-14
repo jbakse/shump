@@ -65,7 +65,7 @@
       w = 800;
       h = 600;
       this.camera = new THREE.PerspectiveCamera(75, w / h, 1, 10000);
-      this.camera.position.z = 1000;
+      this.camera.position.z = 10;
       this.scene = new THREE.Scene();
       this.renderer = new THREE.CanvasRenderer();
       this.renderer.setSize(w, h);
@@ -95,36 +95,40 @@
   Level = (function() {
     Level.root = void 0;
 
-    Level.geometry = void 0;
-
-    Level.material = void 0;
-
     Level.mesh = void 0;
+
+    Level.ambientLight = void 0;
 
     function Level() {
       this.update = __bind(this.update, this);
+      var jsonLoader;
       this.root = new THREE.Object3D();
-      this.geometry = new THREE.BoxGeometry(200, 200, 200);
-      this.material = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        wireframe: true
-      });
-      this.mesh = new THREE.Mesh(this.geometry, this.material);
-      this.root.add(this.mesh);
+      this.ambientLight = new THREE.AmbientLight(0xffffff);
+      this.root.add(this.ambientLight);
+      jsonLoader = new THREE.JSONLoader();
+      jsonLoader.load("assets/ship.js", (function(_this) {
+        return function(geometry, materials) {
+          var material;
+          console.log("load", geometry, materials, _this.material);
+          material = new THREE.MeshFaceMaterial(materials);
+          _this.mesh = new THREE.Mesh(geometry, material);
+          return _this.root.add(_this.mesh);
+        };
+      })(this));
     }
 
     Level.prototype.update = function(delta) {
       if (input.keyStates['up']) {
-        this.mesh.position.y += 600 * delta;
+        this.mesh.position.y += 10 * delta;
       }
       if (input.keyStates['down']) {
-        this.mesh.position.y -= 600 * delta;
+        this.mesh.position.y -= 10 * delta;
       }
       if (input.keyStates['left']) {
-        this.mesh.position.x -= 600 * delta;
+        this.mesh.position.x -= 10 * delta;
       }
       if (input.keyStates['right']) {
-        return this.mesh.position.x += 600 * delta;
+        return this.mesh.position.x += 10 * delta;
       }
     };
 
