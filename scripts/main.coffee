@@ -76,6 +76,7 @@ class Model extends Base
 	load: (fileName)=>
 		jsonLoader = new THREE.JSONLoader();
 		jsonLoader.load fileName, (geometry, materials, others...)=>
+			console.log geometry, materials, others
 			@material = new THREE.MeshFaceMaterial( materials )
 			@geometry = geometry
 			@status = "ready"
@@ -140,7 +141,7 @@ class Level extends GameObject
 		@player1 = new Player()
 		@add @player1
 
-		@root.add modelLoader.load("assets/ship.js")
+		@root.add modelLoader.load("assets/grid_cube.js")
 
 	
 	

@@ -137,6 +137,7 @@
         return function() {
           var geometry, materials, others;
           geometry = arguments[0], materials = arguments[1], others = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
+          console.log(geometry, materials, others);
           _this.material = new THREE.MeshFaceMaterial(materials);
           _this.geometry = geometry;
           _this.status = "ready";
@@ -221,7 +222,7 @@
       this.root.add(this.ambientLight);
       this.player1 = new Player();
       this.add(this.player1);
-      this.root.add(modelLoader.load("assets/ship.js"));
+      this.root.add(modelLoader.load("assets/grid_cube.js"));
     }
 
     return Level;
