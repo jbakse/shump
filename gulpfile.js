@@ -4,10 +4,13 @@ var gulp = require('gulp');
 // Include Plugins
 var plumber = require('gulp-plumber');
 var watch = require('gulp-watch');
+var rename = require('gulp-rename');
 var livereload = require('gulp-livereload');
-var concat = require('gulp-concat');
+var concat = require('gulp-continuous-concat');
 var less = require('gulp-less');
 var coffee = require('gulp-coffee');
+var browserify = require('gulp-browserify');
+
 
 // Styles
 // gulp.task('less', function() {
@@ -22,10 +25,13 @@ var coffee = require('gulp-coffee');
 
 //Scripts
 gulp.task('coffee', function() {
-	return gulp.src('scripts/*.coffee')
-		.pipe(watch())
-		.pipe(plumber())
-		.pipe(coffee({sourceMap: true}))
+	return gulp.src('scripts/main.coffee', {read: false})
+		.pipe( browserify({
+			debug: true,
+			transform: ['coffeeify'],
+			extensions: ['.coffee']
+		}))
+		.pipe(rename('app.js'))
 		.pipe(gulp.dest('scripts'))
 		.pipe(livereload())
 		;
@@ -43,13 +49,13 @@ gulp.task('coffee', function() {
 
 
 //Watch Files For Changes
-// gulp.task('watch', function() {
-// 	gulp.watch('src/styles/*.less', ['less']);
-// 	gulp.watch('src/scripts/*.coffee', ['coffee']);
-// 	var server = livereload();
-// 	gulp.watch('templates/**').on('change', function(file) {server.changed(file.path);});
+gulp.task('watch', function() {
+	// gulp.watch('src/styles/*.less', ['less']);
+	gulp.watch('scripts/*.coffee', ['coffee']);
+	// var server = livereload();
+	// gulp.watch('templates/**').on('change', function(file) {server.changed(file.path);});
 
-// });
+});
 
 // Default Task
-gulp.task('default', ['coffee']);
+gulp.task('default', ['coffee', 'watch']);
