@@ -26,6 +26,7 @@ var browserify = require('gulp-browserify');
 //Scripts
 gulp.task('coffee', function() {
 	return gulp.src('scripts/main.coffee', {read: false})
+		.pipe(plumber())
 		.pipe( browserify({
 			debug: true,
 			transform: ['coffeeify'],

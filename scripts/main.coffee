@@ -11,4 +11,6 @@ world.on "update", level.update
 #begin
 world.start()
 
+window.level = level
+
 
