@@ -51,7 +51,15 @@ class Player extends GameObject
 			@parent.add bullet
 
 class Bullet extends GameObject
+	bulletTexture = THREE.ImageUtils.loadTexture "assets/bullet.png"
+	bulletMaterial = new THREE.MeshBasicMaterial
+			map: bulletTexture
+			side: THREE.DoubleSide
 	
+	bulletGeometry = new THREE.PlaneGeometry( 1, 1);
+
+
+
 	constructor: (position)->
 		super()
 		@birth = Date.now()
@@ -65,6 +73,24 @@ class Bullet extends GameObject
 		if Date.now() > @birth + @timeToLive
 			@parent.remove(this)
 
+class Enemy extends GameObject
+	enemyTexture = THREE.ImageUtils.loadTexture "assets/enemy.png"
+	enemyMaterial = new THREE.MeshBasicMaterial
+			map: enemyTexture
+			side: THREE.DoubleSide
+	
+	enemyGeometry = new THREE.PlaneGeometry( 1, 1);
+
+	constructor: (position)->
+		super()
+		@root.add new THREE.Mesh enemyGeometry, enemyMaterial
+		@root.position.copy(position)
+
+	update: ()->
+		@root.position.x -= .05
+		
+
+
 class Level extends GameObject
 	constructor: ->
 		super()
@@ -76,17 +102,21 @@ class Level extends GameObject
 		@add @player1
 
 		# a@root.add modelLoader.load("assets/grid_cube.js")
+		@lastEnemy = Date.now()
 
+	update: (delta)->
+		super(delta)
+		
+		if Date.now() > @lastEnemy + 1000
+			@lastEnemy = Date.now()
+			enemy = new Enemy(@root.position)
+			@add enemy
 	
 	
 
 
 
-bulletTexture = THREE.ImageUtils.loadTexture "assets/bullet.png"
-bulletMaterial = new THREE.MeshBasicMaterial
-			map: bulletTexture
-			side: THREE.DoubleSide
-bulletGeometry = new THREE.PlaneGeometry( 1, 1);
+
 		
 
 modelLoader = new core.ModelLoader()
