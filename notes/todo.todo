@@ -1,0 +1,47 @@
+#Basic Requirements
+
+-	Title Screen
+	-	Instructions
+	-	Start
+
+-	Game Play
+	-	Level
+		-	One endless level will work
+
+	-	Player
+		+-	Move
+		+-	Shoot
+		+-	Die when hit
+
+
+		
+	-	Enemies
+		-	Need three kinds
+		-	Move
+		-	Shoot
+		-	Die when hit
+		
+	-	Boss
+		-	 Multi hits to kill
+		-	 Display health?
+		-	 Dies
+		
+	-	Bullets
+		+-	Move
+		+-	Kill when hit other team
+	
+	-	Explosions
+	
+	-	Score
+		-	track
+		-	show
+		
+-	Graphics
+-	Music
+-	Sound FX
+-	
+-	Game Over Screen
+	-	Return to Title Screen on Keypress   
+
+
+

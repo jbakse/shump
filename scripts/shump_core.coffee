@@ -34,13 +34,13 @@ class World extends Base
 		
 		@renderer = new THREE.CanvasRenderer()
 		@renderer.setSize w, h
-		document.body.appendChild @renderer.domElement
+		$("#shump")[0].appendChild @renderer.domElement
 
 		@clock = new THREE.Clock()
 		@stats = new Stats();
 		@stats.domElement.style.position = 'absolute'
 		@stats.domElement.style.top = '0px'
-		document.body.appendChild( @stats.domElement )
+		$("#shump")[0].appendChild( @stats.domElement )
 
 		return this
 

@@ -5,19 +5,16 @@ class GameObject
 		@parent = undefined
 		@children = []
 		@root = new THREE.Object3D()
-		@colliderType = undefined
-		@colliderHitTypes = []
 		@dead = false
-
+		
 	update: (delta)=>
 		for i in [@children.length-1..0] by -1
 			child = @children[i]
-			child.update delta 
 			if child.dead
 				@remove child
-
-	
-
+				continue
+			child.update delta 
+			
 	add: (gameObject)->
 		gameObject.parent = this
 		@children.push(gameObject)
@@ -30,20 +27,37 @@ class GameObject
 		i =  @children.indexOf(gameObject)
 		if i >= 0
 			@children.splice(i, 1);
-
-
 		return gameObject
 
-	hit: (gameObject)->
-		@dead = true
-		gameObject.dead = true
+	die: ()->
+		@dead = true;
+	
 
-class Player extends GameObject
+class CollisionObject extends GameObject
+	constructor: ()->
+		super()
+		@colliderType = undefined
+		@colliderHitTypes = []
+
+	collideWith: (gameObject)->
+		@die()
+		gameObject.die()
+
+	
+
+
+class Player extends CollisionObject
 
 	constructor: ()->
 		super()
+		
+		@colliderType = "player"
+		@colliderHitTypes.push ""
+
+
 		@root.add modelLoader.load("assets/ship.js")
 		@lastFire = Date.now()
+
 
 	update: (delta)=>
 		if input.keyStates['up']
@@ -62,9 +76,11 @@ class Player extends GameObject
 			@lastFire = Date.now()
 			bullet = new Bullet(@root.position)
 			@parent.add bullet
-			@parent.colliders.push bullet
+			# @parent.colliders.push bullet
 
-class Bullet extends GameObject
+	die: ()->
+		console.log "die"
+class Bullet extends CollisionObject
 	bulletTexture = THREE.ImageUtils.loadTexture "assets/bullet.png"
 	bulletMaterial = new THREE.MeshBasicMaterial
 			map: bulletTexture
@@ -72,24 +88,22 @@ class Bullet extends GameObject
 	
 	bulletGeometry = new THREE.PlaneGeometry( 1, 1);
 
-
-
 	constructor: (position)->
 		super()
-		@birth = Date.now()
-		@timeToLive = 1000
-
-		@root.add new THREE.Mesh bulletGeometry, bulletMaterial
-		@root.position.copy(position)
 		@colliderType = "bullet"
 		@colliderHitTypes.push "enemy"
+		
+		@birth = Date.now()
+		@timeToLive = 1000
+		@root.add new THREE.Mesh bulletGeometry, bulletMaterial
+		@root.position.copy(position)
 
 	update: ()->
 		@root.position.x += .25
 		if Date.now() > @birth + @timeToLive
 			@parent.remove(this)
 
-class Enemy extends GameObject
+class Enemy extends CollisionObject
 	enemyTexture = THREE.ImageUtils.loadTexture "assets/enemy.png"
 	enemyMaterial = new THREE.MeshBasicMaterial
 			map: enemyTexture
@@ -99,9 +113,11 @@ class Enemy extends GameObject
 
 	constructor: (position)->
 		super()
+		@colliderType = "enemy"
+		@colliderHitTypes.push "player"
+
 		@root.add new THREE.Mesh enemyGeometry, enemyMaterial
 		@root.position.copy(position)
-		@colliderType = "enemy"
 
 
 	update: ()->
@@ -134,8 +150,12 @@ class Level extends GameObject
 			@lastEnemy = Date.now()
 			enemy = new Enemy(@root.position.clone().setX(15))
 			@add enemy
-			@colliders.push enemy
+			# @colliders.push enemy
 
+	add: (gameObject)->
+		if gameObject instanceof CollisionObject
+			@colliders.push gameObject 
+		return super(gameObject)
 
 	remove: (gameObject)->
 		i =  @colliders.indexOf(gameObject)
@@ -152,7 +172,7 @@ class Level extends GameObject
 			for b in @colliders
 				if a.colliderHitTypes.indexOf(b.colliderType) > -1
 					if @testCollision a, b
-						a.hit b
+						a.collideWith b
 
 	testCollision: (a, b)->
 		return a.root.position.distanceToSquared(b.root.position) < 1
