@@ -13,7 +13,10 @@ class Base
 
 	trigger: (event, args...) =>
 		return this unless @_events[event]?
-		handler.apply this, args for handler in @_events[event].slice(0) #.slice(0) to copy array, walk copy to avoid problems with delte while iterate
+		for i in [@_events[event].length-1..0] by -1
+			handler = @_events[event][i]
+			handler.apply this, args
+
 		this
 
 
@@ -41,11 +44,11 @@ class World extends Base
 
 		return this
 
-	animate: ->
+	animate: =>
 		@trigger "update", @clock.getDelta()	
 		@renderer.render @scene, @camera
 		@stats.update()
-		requestAnimationFrame ()=> @animate()
+		requestAnimationFrame @animate
 		return
 
 	start: ->

@@ -5,11 +5,18 @@ class GameObject
 		@parent = undefined
 		@children = []
 		@root = new THREE.Object3D()
-
+		@colliderType = undefined
+		@colliderHitTypes = []
+		@dead = false
 
 	update: (delta)=>
-		for child in @children.slice(0)
-			child.update(delta)
+		for i in [@children.length-1..0] by -1
+			child = @children[i]
+			child.update delta 
+			if child.dead
+				@remove child
+
+	
 
 	add: (gameObject)->
 		gameObject.parent = this
@@ -23,7 +30,13 @@ class GameObject
 		i =  @children.indexOf(gameObject)
 		if i >= 0
 			@children.splice(i, 1);
+
+
 		return gameObject
+
+	hit: (gameObject)->
+		@dead = true
+		gameObject.dead = true
 
 class Player extends GameObject
 
@@ -49,6 +62,7 @@ class Player extends GameObject
 			@lastFire = Date.now()
 			bullet = new Bullet(@root.position)
 			@parent.add bullet
+			@parent.colliders.push bullet
 
 class Bullet extends GameObject
 	bulletTexture = THREE.ImageUtils.loadTexture "assets/bullet.png"
@@ -67,6 +81,8 @@ class Bullet extends GameObject
 
 		@root.add new THREE.Mesh bulletGeometry, bulletMaterial
 		@root.position.copy(position)
+		@colliderType = "bullet"
+		@colliderHitTypes.push "enemy"
 
 	update: ()->
 		@root.position.x += .25
@@ -85,6 +101,8 @@ class Enemy extends GameObject
 		super()
 		@root.add new THREE.Mesh enemyGeometry, enemyMaterial
 		@root.position.copy(position)
+		@colliderType = "enemy"
+
 
 	update: ()->
 		@root.position.x -= .05
@@ -95,6 +113,8 @@ class Level extends GameObject
 	constructor: ->
 		super()
 		
+		@colliders = []
+
 		@ambientLight = new THREE.AmbientLight(0xffffff);
 		@root.add(@ambientLight);		
 
@@ -104,17 +124,38 @@ class Level extends GameObject
 		# a@root.add modelLoader.load("assets/grid_cube.js")
 		@lastEnemy = Date.now()
 
+
 	update: (delta)->
 		super(delta)
 		
+		@collisions()
+
 		if Date.now() > @lastEnemy + 1000
 			@lastEnemy = Date.now()
-			enemy = new Enemy(@root.position)
+			enemy = new Enemy(@root.position.clone().setX(15))
 			@add enemy
-	
-	
+			@colliders.push enemy
 
 
+	remove: (gameObject)->
+		i =  @colliders.indexOf(gameObject)
+		if i >= 0
+			@colliders.splice(i, 1);
+
+		return super(gameObject)
+
+
+
+
+	collisions: ()->
+		for a in @colliders
+			for b in @colliders
+				if a.colliderHitTypes.indexOf(b.colliderType) > -1
+					if @testCollision a, b
+						a.hit b
+
+	testCollision: (a, b)->
+		return a.root.position.distanceToSquared(b.root.position) < 1
 
 
 		
