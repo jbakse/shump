@@ -7,15 +7,23 @@ class GameObject
 		@children = []
 		@root = new THREE.Object3D()
 		@dead = false
-		
+		@active = true
+		@age = 0
+
 	update: (delta)=>
+		@age += delta
 		for i in [@children.length-1..0] by -1
 			child = @children[i]
 			if child.dead
 				@remove child
 				continue
-			child.update delta 
-			
+			if child.active
+				child.update delta 
+	
+	activate: ()->
+		@active = true;
+		
+
 	add: (gameObject)->
 		gameObject.parent = this
 		@children.push(gameObject)
@@ -52,7 +60,8 @@ class Player extends CollisionObject
 	constructor: ()->
 		super()
 		
-		@root.position.setX(-4);
+		@root.position.setX(-11);
+		world.camera.position.setX(-11);
 		@colliderType = "player"
 		@colliderHitTypes.push ""
 
@@ -81,7 +90,7 @@ class Player extends CollisionObject
 			# @parent.colliders.push bullet
 
 	die: ()->
-		console.log "die"
+		# console.log "die"
 
 
 class Bullet extends CollisionObject
@@ -125,9 +134,18 @@ class Enemy extends CollisionObject
 
 
 	update: (delta)->
-		# @root.position.x += -10 * delta
-		
-
+		super(delta)
+		@root.position.x += -1 * delta
+		@root.position.y += delta * Math.sin(@age)
+		# super(delta)
+		# if @age < 1
+		# 	@root.position.x += -5 * delta
+		# else if @age < 2
+		# 	@root.position.y += -5 * delta
+		# else if @age < 2.1
+		# 	@root.position.x += 5 * delta
+		# else
+		# 	@die()
 
 class Level extends GameObject
 	constructor: ->
@@ -152,11 +170,18 @@ class Level extends GameObject
 		console.log @data
 		for o in data.layers[0].objects 
 			enemy = new Enemy(new THREE.Vector3(o.x / 32, 7 - o.y / 32, 0))
+			enemy.active = false
 			@add enemy
 
 	update: (delta)->
 		super(delta)
-		world.camera.position.setX(@player1.root.position.x)
+		world.camera.position.x += 1 * delta
+		@player1.root.position.x += 1 * delta
+
+		for child in @children
+			if child.root.position.x < world.camera.position.x + 10
+				child.activate()
+
 		@collisions()
 
 		# if Date.now() > @lastEnemy + 100
@@ -182,10 +207,12 @@ class Level extends GameObject
 
 	collisions: ()->
 		for a in @colliders
-			for b in @colliders
-				if a.colliderHitTypes.indexOf(b.colliderType) > -1
-					if @testCollision a, b
-						a.collideWith b
+			if a.active
+				for b in @colliders
+					if b.active
+						if a.colliderHitTypes.indexOf(b.colliderType) > -1
+							if @testCollision a, b
+								a.collideWith b
 
 	testCollision: (a, b)->
 		return a.root.position.distanceToSquared(b.root.position) < 1
