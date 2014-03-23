@@ -12,7 +12,7 @@
 	-	Player
 		+-	Move
 		+-	Shoot
-		+-	Die when hit
+		-	Die when hit
 
 	-	Backgrounds
 		+- background
@@ -34,7 +34,9 @@
 		+-	Kill when hit other team
 	
 	-	Explosions
-	
+		+- particles
+		- use particle pool
+
 	-	Score
 		-	track
 		-	show
@@ -42,6 +44,8 @@
 	-	Sound
 		- music
 		- fx
+
+	-	Post FX
 
 -	Game Over Screen
 	-	Return to Title Screen on Keypress   

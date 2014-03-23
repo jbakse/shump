@@ -111,12 +111,46 @@ class Bullet extends CollisionObject
 		@birth = Date.now()
 		@timeToLive = 1000
 		@root.add new THREE.Mesh bulletGeometry, bulletMaterial
+
 		@root.position.copy(position)
 
 	update: ()->
 		@root.position.x += .25
 		if Date.now() > @birth + @timeToLive
-			@parent.remove(this)
+			@die()
+
+class Particle extends GameObject
+	particleTexture = THREE.ImageUtils.loadTexture "assets/particle.png"
+	particleMaterial = new THREE.MeshBasicMaterial
+			map: particleTexture
+			shading: THREE.NoShading
+			depthWrite: false
+			transparent: true
+			blending: THREE.AdditiveBlending
+
+	particleGeometry = new THREE.PlaneGeometry( 1, 1);
+
+	constructor: (position, energy)->
+		super()
+		
+		@birth = Date.now()
+		@timeToLive = 1000
+		@root.add new THREE.Mesh particleGeometry, particleMaterial
+		
+		@velocity = new THREE.Vector3(util.random(-1, 1), util.random(-1, 1), util.random(-1, 1));
+		@velocity.normalize().multiplyScalar(energy)
+		@root.position.copy(position)
+
+	update: (delta)->
+		@velocity.multiplyScalar(.99)
+		@root.position.x += @velocity.x * delta
+		@root.position.y += @velocity.y * delta
+		@root.position.z += @velocity.z * delta
+		s = 1- ((Date.now() - @birth) / @timeToLive)
+		@root.scale.set(s, s, s)
+		if Date.now() > @birth + @timeToLive
+			@die()
+
 
 class Enemy extends CollisionObject
 	enemyTexture = THREE.ImageUtils.loadTexture "assets/enemy.png"
@@ -151,6 +185,11 @@ class Enemy extends CollisionObject
 		# 	@root.position.x += 5 * delta
 		# else
 		# 	@die()
+
+	die: ()->
+		for i in [0..20]
+			@parent.add new Particle(@root.position, 3)
+		super()
 
 class TileAsset
 	constructor: (textureFile, width, height)->
