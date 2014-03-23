@@ -1,4 +1,4 @@
-shump = require('./shump.coffee');
+shump = require('./shump/shump.coffee');
 console.log "shump", shump
 
 $("#debug").append("""<span id="levelChildren">""")

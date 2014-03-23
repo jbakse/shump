@@ -52,7 +52,7 @@ gulp.task('coffee', function() {
 //Watch Files For Changes
 gulp.task('watch', function() {
 	// gulp.watch('src/styles/*.less', ['less']);
-	gulp.watch('scripts/*.coffee', ['coffee']);
+	gulp.watch('scripts/**/*.coffee', ['coffee']);
 	// var server = livereload();
 	// gulp.watch('templates/**').on('change', function(file) {server.changed(file.path);});
 

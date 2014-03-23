@@ -1,46 +1,10 @@
 core = require './shump_core.coffee'
-util = require './util.coffee'
+util = require '../util.coffee'
 
-class GameObject
-	constructor: ->
-		@parent = undefined
-		@children = []
-		@root = new THREE.Object3D()
-		@dead = false
-		@active = true
-		@age = 0
+GameObject = require './GameObject.coffee'
+Particle = require './Particle.coffee'
 
-	update: (delta)=>
-		@age += delta
-		for i in [@children.length-1..0] by -1
-			child = @children[i]
-			if child.dead
-				@remove child
-				continue
-			if child.active
-				child.update delta 
-	
-	activate: ()->
-		@active = true;
-		
 
-	add: (gameObject)->
-		gameObject.parent = this
-		@children.push(gameObject)
-		@root.add(gameObject.root)
-		return gameObject
-
-	remove: (gameObject)->
-		@root.remove(gameObject.root)
-		gameObject.parent = null
-		i =  @children.indexOf(gameObject)
-		if i >= 0
-			@children.splice(i, 1);
-		return gameObject
-
-	die: ()->
-		@dead = true;
-	
 
 class CollisionObject extends GameObject
 	constructor: ()->
@@ -119,37 +83,7 @@ class Bullet extends CollisionObject
 		if Date.now() > @birth + @timeToLive
 			@die()
 
-class Particle extends GameObject
-	particleTexture = THREE.ImageUtils.loadTexture "assets/particle.png"
-	particleMaterial = new THREE.MeshBasicMaterial
-			map: particleTexture
-			shading: THREE.NoShading
-			depthWrite: false
-			transparent: true
-			blending: THREE.AdditiveBlending
 
-	particleGeometry = new THREE.PlaneGeometry( 1, 1);
-
-	constructor: (position, energy)->
-		super()
-		
-		@birth = Date.now()
-		@timeToLive = 1000
-		@root.add new THREE.Mesh particleGeometry, particleMaterial
-		
-		@velocity = new THREE.Vector3(util.random(-1, 1), util.random(-1, 1), util.random(-1, 1));
-		@velocity.normalize().multiplyScalar(energy)
-		@root.position.copy(position)
-
-	update: (delta)->
-		@velocity.multiplyScalar(.99)
-		@root.position.x += @velocity.x * delta
-		@root.position.y += @velocity.y * delta
-		@root.position.z += @velocity.z * delta
-		s = 1- ((Date.now() - @birth) / @timeToLive)
-		@root.scale.set(s, s, s)
-		if Date.now() > @birth + @timeToLive
-			@die()
 
 
 class Enemy extends CollisionObject
@@ -170,9 +104,10 @@ class Enemy extends CollisionObject
 
 		@root.add new THREE.Mesh enemyGeometry, enemyMaterial
 		@root.position.copy(position)
-
+		@age = 0
 
 	update: (delta)->
+		@age += delta
 		super(delta)
 		@root.position.x += -1 * delta
 		@root.position.y += delta * Math.sin(@age)

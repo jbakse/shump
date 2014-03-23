@@ -38,7 +38,7 @@ class World extends Base
 		
 		@renderer = new THREE.WebGLRenderer()
 		@renderer.setSize w, h
-		@renderer.sortObjects = false
+		# @renderer.sortObjects = false
 		$("#shump")[0].appendChild @renderer.domElement
 
 		@clock = new THREE.Clock()
@@ -160,7 +160,7 @@ class Input
 				@keyStates[@keyMap[e.which]] = false;
 			e.stopPropagation()
 
-module.exports.Base = Base
+# module.exports.Base = Base
 module.exports.World = World
 module.exports.Model = Model
 module.exports.ModelLoader = ModelLoader
