@@ -38,17 +38,23 @@
 		- use particle pool
 
 	-	Score
-		-	track
-		-	show
+		+-	track
+		+-	show
 	
+	-	Asset Loading
+		-	smart preloading
+		-	start when assets are ready!
+		-	show progress
+
 	-	Sound
 		- music
-		- fx
+		+- fx
 
 	-	Post FX
 
 -	Game Over Screen
 	-	Return to Title Screen on Keypress   
+
 
 -	Graphics
 -	Music

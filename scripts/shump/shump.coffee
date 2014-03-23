@@ -6,8 +6,8 @@ CollisionObject = require './CollisionObject.coffee'
 Player = require './Player.coffee'
 Enemies = require './Enemies.coffee'
 
-
-	
+Sound = require './Sound.coffee'
+Score = require './Score.coffee'
 
 
 class TileAsset
@@ -137,9 +137,10 @@ class Game
 
 		@world.scene.add @level.root
 		@world.on "update", @level.update
-		
-		util.after 100, ()=>
+		Score.displayElement = $("""<h1>Hi</h1>""").appendTo $("#shump")
+		util.after 1000, ()=>
 			@world.start()
+
 		
 
 

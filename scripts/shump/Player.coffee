@@ -1,3 +1,4 @@
+Sound = require './Sound.coffee'
 CollisionObject = require './CollisionObject.coffee'
 ModelLoader = require './ModelLoader.coffee'
 Input = require './Input.coffee'
@@ -33,7 +34,8 @@ class Player extends CollisionObject
 			@fire_primary()
 
 	fire_primary: ()->
-		if Date.now() > @lastFire + 240 
+		if Date.now() > @lastFire + 240 * 1
+			Sound.play('shoot')
 			@lastFire = Date.now()
 			bullet = new Weapons.Bullet(@root.position)
 			@parent.add bullet
