@@ -7,6 +7,7 @@
 -	Game Play
 	-	Level
 		-	One endless level will work
+		+-	start loading level from Tiled level editor
 
 	-	Player
 		+-	Move
@@ -19,7 +20,7 @@
 		-	Need three kinds
 		-	Move
 		-	Shoot
-		-	Die when hit
+		+-	Die when hit
 		
 	-	Boss
 		-	 Multi hits to kill

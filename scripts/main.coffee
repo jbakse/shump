@@ -8,13 +8,14 @@ updateDebug = ()->
 
 
 #setup world
-world = new shump.core.World()
+window.world = new shump.core.World()
 level = new shump.Level()
 
 world.scene.add level.root
 world.on "update", level.update
 world.on "update", updateDebug
 
+console.log "level", level
 #begin
 world.start()
 

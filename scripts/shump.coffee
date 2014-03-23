@@ -1,4 +1,5 @@
 core = require './shump_core.coffee'
+util = require './util.coffee'
 
 class GameObject
 	constructor: ->
@@ -51,6 +52,7 @@ class Player extends CollisionObject
 	constructor: ()->
 		super()
 		
+		@root.position.setX(-4);
 		@colliderType = "player"
 		@colliderHitTypes.push ""
 
@@ -72,7 +74,7 @@ class Player extends CollisionObject
 			@fire_primary()
 
 	fire_primary: ()->
-		if Date.now() > @lastFire + 240
+		if Date.now() > @lastFire + 240 
 			@lastFire = Date.now()
 			bullet = new Bullet(@root.position)
 			@parent.add bullet
@@ -80,6 +82,8 @@ class Player extends CollisionObject
 
 	die: ()->
 		console.log "die"
+
+
 class Bullet extends CollisionObject
 	bulletTexture = THREE.ImageUtils.loadTexture "assets/bullet.png"
 	bulletMaterial = new THREE.MeshBasicMaterial
@@ -120,8 +124,8 @@ class Enemy extends CollisionObject
 		@root.position.copy(position)
 
 
-	update: ()->
-		@root.position.x -= .05
+	update: (delta)->
+		# @root.position.x += -10 * delta
 		
 
 
@@ -140,17 +144,26 @@ class Level extends GameObject
 		# a@root.add modelLoader.load("assets/grid_cube.js")
 		@lastEnemy = Date.now()
 
+		$.getJSON "assets/level_1.json", @onLoad
+			
+
+	onLoad: (data)=>
+		@data = data
+		console.log @data
+		for o in data.layers[0].objects 
+			enemy = new Enemy(new THREE.Vector3(o.x / 32, 7 - o.y / 32, 0))
+			@add enemy
 
 	update: (delta)->
 		super(delta)
-		
+		world.camera.position.setX(@player1.root.position.x)
 		@collisions()
 
-		if Date.now() > @lastEnemy + 1000
-			@lastEnemy = Date.now()
-			enemy = new Enemy(@root.position.clone().setX(15))
-			@add enemy
-			# @colliders.push enemy
+		# if Date.now() > @lastEnemy + 100
+		# 	@lastEnemy = Date.now()
+		# 	enemy = new Enemy(@root.position.clone().setX(15).setY(util.random(-10, 10)))
+		# 	@add enemy
+			
 
 	add: (gameObject)->
 		if gameObject instanceof CollisionObject

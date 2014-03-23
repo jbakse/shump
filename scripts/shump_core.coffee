@@ -25,10 +25,15 @@ class World extends Base
 	constructor: ->
 		super()
 
-		w = 800
-		h = 600
-		@camera = new THREE.PerspectiveCamera(75, w / h, 1, 10000)
-		@camera.position.z = 10
+		w = 640
+		h = 480
+		@camera = new THREE.PerspectiveCamera(45, w / h, 1, 10000)
+		fov_radians = 45 * (Math.PI / 180)
+
+		targetZ = 480 / (2 * Math.tan(fov_radians / 2) ) / 32.0;
+
+		console.log targetZ
+		@camera.position.z = targetZ
 		
 		@scene = new THREE.Scene()
 		
@@ -45,7 +50,11 @@ class World extends Base
 		return this
 
 	animate: =>
-		@trigger "update", @clock.getDelta()	
+		delta = @clock.getDelta()		
+		#don't update after long frame (fixes issue with switching tabs)
+		if (delta < .5) 
+			@trigger "update", delta
+
 		@renderer.render @scene, @camera
 		@stats.update()
 		requestAnimationFrame @animate
