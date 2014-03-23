@@ -1,130 +1,14 @@
-core = require './shump_core.coffee'
 util = require '../util.coffee'
 
+World = require './World.coffee'
 GameObject = require './GameObject.coffee'
-Particle = require './Particle.coffee'
+CollisionObject = require './CollisionObject.coffee'
+Player = require './Player.coffee'
+Enemies = require './Enemies.coffee'
 
-
-
-class CollisionObject extends GameObject
-	constructor: ()->
-		super()
-		@colliderType = undefined
-		@colliderHitTypes = []
-
-	collideWith: (gameObject)->
-		@die()
-		gameObject.die()
 
 	
 
-
-class Player extends CollisionObject
-
-	constructor: ()->
-		super()
-		
-		@root.position.setX(-0);
-		world.camera.position.setX(-0);
-		@colliderType = "player"
-		@colliderHitTypes.push ""
-
-
-		@root.add modelLoader.load("assets/ship.js")
-		@lastFire = Date.now()
-
-
-	update: (delta)=>
-		if input.keyStates['up']
-			@root.position.y += 10 * delta;
-		if input.keyStates['down']
-			@root.position.y -= 10 * delta;
-		if input.keyStates['left']
-			@root.position.x -= 10 * delta;
-		if input.keyStates['right']
-			@root.position.x += 10 * delta;
-		if input.keyStates['fire_primary']
-			@fire_primary()
-
-	fire_primary: ()->
-		if Date.now() > @lastFire + 240 
-			@lastFire = Date.now()
-			bullet = new Bullet(@root.position)
-			@parent.add bullet
-			# @parent.colliders.push bullet
-
-	die: ()->
-		# console.log "die"
-
-
-class Bullet extends CollisionObject
-	bulletTexture = THREE.ImageUtils.loadTexture "assets/bullet.png"
-	bulletMaterial = new THREE.MeshBasicMaterial
-			map: bulletTexture
-			side: THREE.DoubleSide
-			shading: THREE.NoShading
-			transparent: true
-	
-	bulletGeometry = new THREE.PlaneGeometry( 1, 1);
-
-	constructor: (position)->
-		super()
-		@colliderType = "bullet"
-		@colliderHitTypes.push "enemy"
-		
-		@birth = Date.now()
-		@timeToLive = 1000
-		@root.add new THREE.Mesh bulletGeometry, bulletMaterial
-
-		@root.position.copy(position)
-
-	update: ()->
-		@root.position.x += .25
-		if Date.now() > @birth + @timeToLive
-			@die()
-
-
-
-
-class Enemy extends CollisionObject
-	enemyTexture = THREE.ImageUtils.loadTexture "assets/enemy.png"
-	enemyMaterial = new THREE.MeshBasicMaterial
-			map: enemyTexture
-			side: THREE.DoubleSide
-			shading: THREE.NoShading
-			transparent: true
-			
-
-	enemyGeometry = new THREE.PlaneGeometry( 1, 1);
-
-	constructor: (position)->
-		super()
-		@colliderType = "enemy"
-		@colliderHitTypes.push "player"
-
-		@root.add new THREE.Mesh enemyGeometry, enemyMaterial
-		@root.position.copy(position)
-		@age = 0
-
-	update: (delta)->
-		@age += delta
-		super(delta)
-		@root.position.x += -1 * delta
-		@root.position.y += delta * Math.sin(@age)
-		# super(delta)
-		# if @age < 1
-		# 	@root.position.x += -5 * delta
-		# else if @age < 2
-		# 	@root.position.y += -5 * delta
-		# else if @age < 2.1
-		# 	@root.position.x += 5 * delta
-		# else
-		# 	@die()
-
-	die: ()->
-		for i in [0..20]
-			@parent.add new Particle(@root.position, 3)
-		super()
 
 class TileAsset
 	constructor: (textureFile, width, height)->
@@ -151,7 +35,7 @@ class Tile extends GameObject
 	update: ->
 
 class Level extends GameObject
-	constructor: ->
+	constructor: (@world)->
 		super()
 		
 		@colliders = []
@@ -162,8 +46,7 @@ class Level extends GameObject
 		@player1 = new Player()
 		@add @player1
 
-		# a@root.add modelLoader.load("assets/grid_cube.js")
-		@lastEnemy = Date.now()
+	
 
 		$.getJSON "assets/level_1.json", @onLoad
 			
@@ -196,25 +79,23 @@ class Level extends GameObject
 				@add tile
 
 		for o in data.layers[2].objects 
-			enemy = new Enemy(new THREE.Vector3(o.x / 32, 7 - o.y / 32, util.random(-1, 1)))
+			enemy = new Enemies.SinWave(new THREE.Vector3(o.x / 32, 7 - o.y / 32, util.random(-1, 1)))
+
 			enemy.active = false
 			@add enemy
 
 	update: (delta)->
 		super(delta)
-		world.camera.position.x += 1 * delta
+		@world.camera.position.x += 1 * delta
 		@player1.root.position.x += 1 * delta
 
 		for child in @children
-			if child.active == false and child.root.position.x < world.camera.position.x + 10
+			if child.active == false and child.root.position.x < @world.camera.position.x + 10
 				child.activate()
 
 		@collisions()
 
-		# if Date.now() > @lastEnemy + 100
-		# 	@lastEnemy = Date.now()
-		# 	enemy = new Enemy(@root.position.clone().setX(15).setY(util.random(-10, 10)))
-		# 	@add enemy
+	
 			
 
 	add: (gameObject)->
@@ -245,11 +126,30 @@ class Level extends GameObject
 		return a.root.position.distanceToSquared(b.root.position) < 1
 
 
+
+
+
+class Game
+	constructor: ()->
+		#setup world
+		@world = new World()
+		@level = new Level(@world)
+
+		@world.scene.add @level.root
+		@world.on "update", @level.update
+		
+		util.after 100, ()=>
+			@world.start()
 		
 
-modelLoader = new core.ModelLoader()
-input = new core.Input()
+
+module.exports.Game = Game	
+
+		
+
+# modelLoader = new core.ModelLoader()
+
 
 			
-module.exports.Level = Level
-module.exports.core = core
+
+
