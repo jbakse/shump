@@ -14,7 +14,9 @@
 		+-	Shoot
 		+-	Die when hit
 
-
+	-	Backgrounds
+		+- background
+		+- far background(paralax)
 		
 	-	Enemies
 		-	Need three kinds
@@ -36,13 +38,16 @@
 	-	Score
 		-	track
 		-	show
-		
--	Graphics
--	Music
--	Sound FX
--	
+	
+	-	Sound
+		- music
+		- fx
+
 -	Game Over Screen
 	-	Return to Title Screen on Keypress   
 
+-	Graphics
+-	Music
+-	Sound FX
 
 
