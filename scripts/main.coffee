@@ -17,7 +17,9 @@ world.on "update", updateDebug
 
 console.log "level", level
 #begin
-world.start()
+setTimeout ()->
+	world.start()
+, 1000
 
 
 window.level = level

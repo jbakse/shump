@@ -32,13 +32,13 @@ class World extends Base
 
 		targetZ = 480 / (2 * Math.tan(fov_radians / 2) ) / 32.0;
 
-		console.log targetZ
 		@camera.position.z = targetZ
 		
 		@scene = new THREE.Scene()
 		
-		@renderer = new THREE.CanvasRenderer()
+		@renderer = new THREE.WebGLRenderer()
 		@renderer.setSize w, h
+		@renderer.sortObjects = false
 		$("#shump")[0].appendChild @renderer.domElement
 
 		@clock = new THREE.Clock()
