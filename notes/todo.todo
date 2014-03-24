@@ -20,7 +20,7 @@
 		
 	-	Enemies
 		-	Need three kinds
-		-	Move
+		+-	Move
 		-	Shoot
 		+-	Die when hit
 		
@@ -49,8 +49,11 @@
 	-	Sound
 		- music
 		+- fx
+		- fx post processing (echo effect maybe?)
 
 	-	Post FX
+
+	-	Full Screen
 
 -	Game Over Screen
 	-	Return to Title Screen on Keypress   

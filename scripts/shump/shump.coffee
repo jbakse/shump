@@ -79,7 +79,7 @@ class Level extends GameObject
 				@add tile
 
 		for o in data.layers[2].objects 
-			enemy = new Enemies.SinWave(new THREE.Vector3(o.x / 32, 7 - o.y / 32, util.random(-1, 1)))
+			enemy = new Enemies[o.type](new THREE.Vector3(o.x / 32, 7 - o.y / 32, util.random(-1, 1)))
 
 			enemy.active = false
 			@add enemy

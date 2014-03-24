@@ -40,9 +40,20 @@ class SinWave extends Basic
 		@root.position.x += -1 * delta
 		@root.position.y += delta * Math.sin(@age)
 
+class Dart extends Basic
+	update: (delta)->
+		super(delta)		
+		if @age < 1
+			@root.position.x += -20 * delta
+		else if @age < 3
+			@root.position.x += 5 * delta
+		else
+			@die()
+
+
 exports.Basic = Basic
 exports.SinWave = SinWave
-
+exports.Dart = Dart
 
 # super(delta)
 		# if @age < 1
