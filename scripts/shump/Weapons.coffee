@@ -1,7 +1,7 @@
 CollisionObject = require './CollisionObject.coffee'
 
 class exports.Bullet extends CollisionObject
-	bulletTexture = THREE.ImageUtils.loadTexture "assets/bullet.png"
+	bulletTexture = THREE.ImageUtils.loadTexture "assets/weapons/bullet.png"
 	bulletMaterial = new THREE.MeshBasicMaterial
 			map: bulletTexture
 			side: THREE.DoubleSide

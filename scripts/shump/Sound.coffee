@@ -29,5 +29,5 @@ exports.play = play = (arg)->
 		source.start(0)
 
 
-loadSound('shoot', 'assets/shoot.wav')
-loadSound('explosion', 'assets/explosion.wav')
+loadSound('shoot', 'assets/sounds/shoot.wav')
+loadSound('explosion', 'assets/sounds/explosion.wav')

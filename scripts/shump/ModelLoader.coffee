@@ -36,7 +36,7 @@ class ModelLoader
 		@defaultMaterial = new THREE.MeshBasicMaterial
 			color: 0x00ff00
 			wireframe: true
-			map: THREE.ImageUtils.loadTexture "assets/white.png"
+			map: THREE.ImageUtils.loadTexture "assets/util/white.png"
 
 		@loadedModels = {}
 

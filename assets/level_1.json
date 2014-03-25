@@ -792,6 +792,32 @@
                  "width":32,
                  "x":512,
                  "y":224
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"Enemy_A",
+                 "visible":true,
+                 "width":32,
+                 "x":192,
+                 "y":128
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"Enemy_A",
+                 "visible":true,
+                 "width":32,
+                 "x":192,
+                 "y":320
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -809,7 +835,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"background_a.png",
+         "image":"backgrounds/background_a.png",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -824,7 +850,7 @@
         }, 
         {
          "firstgid":2,
-         "image":"background_b.png",
+         "image":"backgrounds/background_b.png",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -839,7 +865,7 @@
         }, 
         {
          "firstgid":3,
-         "image":"background_c.png",
+         "image":"backgrounds/background_c.png",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
