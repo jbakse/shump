@@ -11,4 +11,6 @@ updateDebug = ()->
 game.world.on "update", updateDebug
 
 
-console.log "hidera"
+# console.log "hidera"
+
+

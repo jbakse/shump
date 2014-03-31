@@ -23,7 +23,7 @@ class TileAsset
 			transparent: true
 			# color: 0xff0000
 				
-		console.log "mat", @material
+		# console.log "mat", @material
 		@geometry = new THREE.PlaneGeometry( width, height);
 
 class Tile extends GameObject
@@ -53,7 +53,7 @@ class Level extends GameObject
 
 	onLoad: (data)=>
 		@data = data
-		console.log @data
+		# console.log @data
 		@tiles = []
 		for tileset in data.tilesets
 			@tiles[tileset.firstgid] = new TileAsset("assets/"+tileset.image, tileset.tileheight/32, tileset.tilewidth/32)
