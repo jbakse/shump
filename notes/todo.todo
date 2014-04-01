@@ -8,7 +8,8 @@
 	-	Level
 		.-	One endless level will work
 		+-	start loading level from Tiled level editor
-
+		-	tiles
+		
 	-	Player
 		+-	Move
 		+-	Shoot
