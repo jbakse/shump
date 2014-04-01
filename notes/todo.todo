@@ -42,6 +42,9 @@
 		+-	show
 	
 	-	Asset Loading
+		-	look at existing batch loading js conventions
+		-	want texture loader, sound loader, model loaders
+		-	want centralized loading progress manager that can track all of the different asset types
 		-	smart preloading
 		-	start when assets are ready!
 		-	show progress

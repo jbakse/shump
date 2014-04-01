@@ -26,7 +26,7 @@ class Model extends Base
 				# side: THREE.DoubleSide
 			@geometry = new THREE.PlaneGeometry 1, 1
 			@status = "ready"
-			console.log "loadpng", this
+			#console.log "loadpng", this
 			@trigger "success", this
 
 class ModelLoader
@@ -36,7 +36,7 @@ class ModelLoader
 		@defaultMaterial = new THREE.MeshBasicMaterial
 			color: 0x00ff00
 			wireframe: true
-			map: THREE.ImageUtils.loadTexture "assets/white.png"
+			map: THREE.ImageUtils.loadTexture "assets/util/white.png"
 
 		@loadedModels = {}
 
@@ -44,7 +44,7 @@ class ModelLoader
 
 		# if already loaded, just make the new mesh and return
 		if @loadedModels[fileName]? && @loadedModels[fileName].status == "ready"
-			console.log "cached"
+			#console.log "cached"
 			return new THREE.Mesh(@loadedModels[fileName].geometry, @loadedModels[fileName].material)
 
 

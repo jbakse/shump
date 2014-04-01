@@ -4,7 +4,7 @@ CollisionObject = require './CollisionObject.coffee'
 Particle = require './Particle.coffee'
 
 class Basic extends CollisionObject
-	enemyTexture = THREE.ImageUtils.loadTexture "assets/enemy.png"
+	enemyTexture = THREE.ImageUtils.loadTexture "assets/enemies/enemy.png"
 	enemyMaterial = new THREE.MeshBasicMaterial
 			map: enemyTexture
 			side: THREE.DoubleSide
