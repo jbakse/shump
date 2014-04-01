@@ -18,6 +18,7 @@ class Player extends CollisionObject
 
 
 		@root.add modelLoader.load("assets/ships/ship.js")
+		
 		@lastFire = Date.now()
 
 
