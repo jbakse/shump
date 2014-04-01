@@ -14,7 +14,7 @@ class Player extends CollisionObject
 		
 		
 		@colliderType = "player"
-		@colliderHitTypes.push ""
+		@colliderHitTypes.push "enemy_bullet"
 
 
 		@root.add modelLoader.load("assets/ships/ship.js")

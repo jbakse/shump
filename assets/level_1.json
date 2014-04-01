@@ -194,6 +194,19 @@
                  "width":32,
                  "x":928,
                  "y":416
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"Dart",
+                 "visible":true,
+                 "width":32,
+                 "x":384,
+                 "y":160
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -211,7 +224,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"background_a.png",
+         "image":"backgrounds\/background_a.png",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -226,7 +239,7 @@
         }, 
         {
          "firstgid":2,
-         "image":"background_b.png",
+         "image":"backgrounds\/background_b.png",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -241,7 +254,7 @@
         }, 
         {
          "firstgid":3,
-         "image":"background_c.png",
+         "image":"backgrounds\/background_c.png",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,

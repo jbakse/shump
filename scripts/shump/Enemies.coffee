@@ -2,6 +2,8 @@ Score = require './Score.coffee'
 Sound = require './Sound.coffee'
 CollisionObject = require './CollisionObject.coffee'
 Particle = require './Particle.coffee'
+Weapons = require './Weapons.coffee'
+
 
 class Basic extends CollisionObject
 	enemyTexture = THREE.ImageUtils.loadTexture "assets/enemies/enemy.png"
@@ -20,6 +22,7 @@ class Basic extends CollisionObject
 		@root.add new THREE.Mesh enemyGeometry, enemyMaterial
 		@root.position.copy(position)
 		@age = 0
+		@hasFired = false
 
 	update: (delta)->
 		super(delta)
@@ -43,12 +46,25 @@ class SinWave extends Basic
 class Dart extends Basic
 	update: (delta)->
 		super(delta)		
-		if @age < 1
+		if @age < .5
 			@root.position.x += -20 * delta
 		else if @age < 3
 			@root.position.x += 5 * delta
 		else
 			@die()
+
+		if @age > 1 and not @hasFired
+			console.log "fire"
+			@hasFired = true
+			@fire_primary()
+
+
+	fire_primary: ()->
+	
+		Sound.play('shoot')
+		@lastFire = Date.now()
+		bullet = new Weapons.EnemyBullet(@root.position)
+		@parent.add bullet	
 
 
 exports.Basic = Basic

@@ -6,7 +6,7 @@
 
 -	Game Play
 	-	Level
-		-	One endless level will work
+		.-	One endless level will work
 		+-	start loading level from Tiled level editor
 
 	-	Player
@@ -21,9 +21,10 @@
 	-	Enemies
 		-	Need three kinds
 		+-	Move
-		-	Shoot
+		+-	Shoot
 		+-	Die when hit
-		
+		-	Better factor weapons/bullets
+
 	-	Boss
 		-	 Multi hits to kill
 		-	 Display health?
