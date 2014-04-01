@@ -6,9 +6,10 @@
 
 -	Game Play
 	-	Level
-		-	One endless level will work
+		.-	One endless level will work
 		+-	start loading level from Tiled level editor
-
+		-	tiles
+		
 	-	Player
 		+-	Move
 		+-	Shoot
@@ -20,10 +21,11 @@
 		
 	-	Enemies
 		-	Need three kinds
-		-	Move
-		-	Shoot
+		+-	Move
+		+-	Shoot
 		+-	Die when hit
-		
+		-	Better factor weapons/bullets
+
 	-	Boss
 		-	 Multi hits to kill
 		-	 Display health?
@@ -52,8 +54,11 @@
 	-	Sound
 		- music
 		+- fx
+		- fx post processing (echo effect maybe?)
 
 	-	Post FX
+
+	-	Full Screen
 
 -	Game Over Screen
 	-	Return to Title Screen on Keypress   
