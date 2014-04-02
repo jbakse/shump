@@ -12,43 +12,24 @@ class exports.Bullet extends CollisionObject
 
 	constructor: (position)->
 		super()
+		
+		@birth = Date.now()
+		@timeToLive = 2000
+		@root.add new THREE.Mesh bulletGeometry, bulletMaterial
+
+		@root.position.copy(position)
+
 		@colliderType = "bullet"
 		@colliderHitTypes.push "enemy"
-		
-		@birth = Date.now()
-		@timeToLive = 1000
-		@root.add new THREE.Mesh bulletGeometry, bulletMaterial
+		@angle = 0
+		@speed = 15
 
-		@root.position.copy(position)
-
-	update: ()->
-		@root.position.x += .25
+	update: (delta)->
+		@root.position.x += Math.cos(@angle)*@speed*delta
+		@root.position.y += Math.sin(@angle)*@speed*delta
+		@root.rotation.z = @angle
 		if Date.now() > @birth + @timeToLive
 			@die()
 
 
-class exports.EnemyBullet extends CollisionObject
-	bulletTexture = THREE.ImageUtils.loadTexture "assets/weapons/bullet.png"
-	bulletMaterial = new THREE.MeshBasicMaterial
-			map: bulletTexture
-			side: THREE.DoubleSide
-			shading: THREE.NoShading
-			transparent: true
-	
-	bulletGeometry = new THREE.PlaneGeometry( 1, 1);
 
-	constructor: (position)->
-		super()
-		@colliderType = "enemy_bullet"
-		@colliderHitTypes.push "player"
-		
-		@birth = Date.now()
-		@timeToLive = 1000
-		@root.add new THREE.Mesh bulletGeometry, bulletMaterial
-
-		@root.position.copy(position)
-
-	update: ()->
-		@root.position.x -= .15
-		if Date.now() > @birth + @timeToLive
-			@die()

@@ -29,8 +29,9 @@ class Model extends Base
 			#console.log "loadpng", this
 			@trigger "success", this
 
+
+
 class ModelLoader
-	
 	constructor: ()->
 		@defaultGeometry = new THREE.CubeGeometry(1,1,1)
 		@defaultMaterial = new THREE.MeshBasicMaterial

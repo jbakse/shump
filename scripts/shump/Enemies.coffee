@@ -63,7 +63,22 @@ class Dart extends Basic
 	
 		Sound.play('shoot')
 		@lastFire = Date.now()
-		bullet = new Weapons.EnemyBullet(@root.position)
+		bullet = new Weapons.Bullet(@root.position)
+
+		bullet.colliderType = "enemy_bullet"
+		bullet.colliderHitTypes = ["player"]
+		bullet.angle = Math.PI - .25
+		bullet.speed = 5
+
+		@parent.add bullet	
+
+		bullet = new Weapons.Bullet(@root.position)
+
+		bullet.colliderType = "enemy_bullet"
+		bullet.colliderHitTypes = ["player"]
+		bullet.angle = Math.PI + .25
+		bullet.speed = 5
+
 		@parent.add bullet	
 
 

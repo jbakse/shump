@@ -38,7 +38,16 @@ class Player extends CollisionObject
 		if Date.now() > @lastFire + 240 * 1
 			Sound.play('shoot')
 			@lastFire = Date.now()
+			
 			bullet = new Weapons.Bullet(@root.position)
+			@parent.add bullet
+
+			bullet = new Weapons.Bullet(@root.position)
+			bullet.angle = -.25
+			@parent.add bullet
+
+			bullet = new Weapons.Bullet(@root.position)
+			bullet.angle = +.25
 			@parent.add bullet
 			# @parent.colliders.push bullet
 
