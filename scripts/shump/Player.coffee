@@ -1,8 +1,12 @@
+util = require '../util.coffee'
+
 Sound = require './Sound.coffee'
 CollisionObject = require './CollisionObject.coffee'
 ModelLoader = require './ModelLoader.coffee'
 Input = require './Input.coffee'
 Weapons = require './Weapons.coffee'
+Particle = require './Particle.coffee'
+Shump = require './shump.coffee'
 
 modelLoader = new ModelLoader()
 input = new Input()
@@ -53,6 +57,14 @@ class Player extends CollisionObject
 
 	die: ()->
 		# console.log "die"
+		
+		Sound.play('explosion')
+		for i in [0..200]
+			@parent.add new Particle(@root.position, 8)
+
+		util.after 1000, Shump.game.reset
+		super()
+
 
 
 module.exports = Player

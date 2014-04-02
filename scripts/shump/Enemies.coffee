@@ -54,7 +54,6 @@ class Dart extends Basic
 			@die()
 
 		if @age > 1 and not @hasFired
-			console.log "fire"
 			@hasFired = true
 			@fire_primary()
 

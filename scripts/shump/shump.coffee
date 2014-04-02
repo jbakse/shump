@@ -46,10 +46,10 @@ class Level extends GameObject
 		@player1 = new Player()
 		@add @player1
 
-	
-
 		$.getJSON "assets/level_1.json", @onLoad
 			
+	
+
 
 	onLoad: (data)=>
 		@data = data
@@ -133,18 +133,29 @@ class Game
 	constructor: ()->
 		#setup world
 		@world = new World()
-		@level = new Level(@world)
-
-		@world.scene.add @level.root
-		@world.on "update", @level.update
+		
 		Score.displayElement = $("""<h1>Hi</h1>""").appendTo $("#shump")
+		@loadLevel()
+
 		util.after 1000, ()=>
 			@world.start()
-
+	
+	loadLevel: ()->
+		@world.camera.position.x = 0;
+		@level = new Level(@world)
+		@world.scene.add @level.root
+		@world.on "update", @level.update
 		
+	reset: ()=>
+		console.log "reset level"
+		
+		@world.scene.remove @level.root
+		@world.off "update", @level.update
+
+		@loadLevel()
 
 
-module.exports.Game = Game	
+module.exports.game = game = new Game()
 
 		
 
