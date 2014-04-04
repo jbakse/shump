@@ -134,7 +134,7 @@ class Game
 		#setup world
 		@world = new World()
 		
-		Score.displayElement = $("""<h1>Hi</h1>""").appendTo $("#shump")
+		Score.displayElement = $("""<h1>""").appendTo $("#shump")
 		@loadLevel()
 
 		util.after 1000, ()=>
