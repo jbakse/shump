@@ -5,10 +5,18 @@ class CollisionObject extends GameObject
 		super()
 		@colliderType = undefined
 		@colliderHitTypes = []
+		@hp = 1
+		@dp = 1
+		@collisionRadius = .6
 
-	collideWith: (gameObject)->
-		@die()
-		gameObject.die()
+	collideInto: (target)->
+		target.takeDamage(@dp)
+		# @die()
+		# gameObject.die()
 
+	takeDamage: (damage)->
+		@hp -= damage
+		if @hp <= 0 
+			@die()
 
 module.exports = CollisionObject

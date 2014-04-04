@@ -178,10 +178,10 @@ class Level extends GameObject
 					if b.active
 						if a.colliderHitTypes.indexOf(b.colliderType) > -1
 							if @testCollision a, b
-								a.collideWith b
+								a.collideInto b
 
 	testCollision: (a, b)->
-		return a.root.position.distanceToSquared(b.root.position) < 1
+		return a.root.position.distanceToSquared(b.root.position) < a.collisionRadius + b.collisionRadius
 
 
 

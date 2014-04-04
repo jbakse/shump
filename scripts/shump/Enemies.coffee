@@ -1,4 +1,4 @@
-Score = require './Score.coffee'
+
 Sound = require './Sound.coffee'
 CollisionObject = require './CollisionObject.coffee'
 Particle = require './Particle.coffee'
@@ -24,13 +24,13 @@ class Basic extends CollisionObject
 		@age = 0
 		@hasFired = false
 
+
 	update: (delta)->
 		super(delta)
 		@age += delta
 		
 	
 	die: ()->
-		Score.add(1)
 		Sound.play('explosion')
 		for i in [0..20]
 			@parent.add new Particle(@root.position, 3)

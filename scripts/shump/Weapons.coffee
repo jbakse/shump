@@ -1,4 +1,6 @@
+Score = require './Score.coffee'
 CollisionObject = require './CollisionObject.coffee'
+Particle = require './Particle.coffee'
 
 class exports.Bullet extends CollisionObject
 	bulletTexture = THREE.ImageUtils.loadTexture "assets/weapons/bullet.png"
@@ -32,4 +34,10 @@ class exports.Bullet extends CollisionObject
 			@die()
 
 
+	collideInto: (target)->
+		super(target)
+		Score.add(1)
+		@die()
+		for i in [0..5]
+			@parent.add new Particle(@root.position, 1)
 
