@@ -20,12 +20,14 @@ class Player extends CollisionObject
 		@colliderType = "player"
 		@colliderHitTypes.push "enemy_bullet"
 
-
-		@root.add modelLoader.load("assets/ships/ship.js")
+		model = modelLoader.load("assets/ships/ship2.js")
+		@root.add model
+		util.after 1000, ()->
+			model.material.materials[0].wireframe = true
 		
 		@lastFire = Date.now()
 		@hp = 3
-		
+
 
 	update: (delta)=>
 		if input.keyStates['up']
