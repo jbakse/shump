@@ -17,7 +17,7 @@ class Input
 			@keyStates[value] = false;
 
 		$(window).keydown (e)=>
-			console.log e.which
+			# console.log e.which
 			if @keyMap[e.which]
 				@keyStates[@keyMap[e.which]] = true;
 			e.stopPropagation()

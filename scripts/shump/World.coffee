@@ -57,13 +57,13 @@ class World extends Base
 					vec4 o;
 
 					o = texture2D( tDiffuse, vUv );
-					o.r = texture2D( tDiffuse, vUv + vec2(0.0, 0.001) ).r;
+					//o.r = texture2D( tDiffuse, vUv + vec2(0.0, 0.001) ).r;
 
-					o.r *= sin(vUv.y * 240.0 * 6.28) * .25 + .75;
-					o.g *= sin(vUv.y * 240.0 * 6.28) * .25 + .75;
-					o.b *= sin(vUv.y * 240.0 * 6.28) * .25 + .75;
+					//o.r *= sin(vUv.y * 240.0 * 6.28) * .25 + .75;
+					//o.g *= sin(vUv.y * 240.0 * 6.28) * .25 + .75;
+					//o.b *= sin(vUv.y * 240.0 * 6.28) * .25 + .75;
 
-					o *= 0.5 + 1.0*16.0*vUv.x*vUv.y*(1.0-vUv.x)*(1.0-vUv.y);
+					//o *= 0.5 + 1.0*16.0*vUv.x*vUv.y*(1.0-vUv.x)*(1.0-vUv.y);
 					
 
 					// set the output color

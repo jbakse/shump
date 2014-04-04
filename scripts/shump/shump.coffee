@@ -9,9 +9,33 @@ Enemies = require './Enemies.coffee'
 Sound = require './Sound.coffee'
 Score = require './Score.coffee'
 
+class Tile
+	constructor: (@tileSet, @row, @col)->
+		@geometry = new THREE.PlaneGeometry( @tileSet.tileWidth / 32, @tileSet.tileHeight / 32)
+		for v in @geometry.vertices
+			v.x += @tileSet.tileWidth / 32 / 2
+			v.y += @tileSet.tileHeight / 32 / 2
+		@geometry.verticesNeedUpdate = true
 
-class TileAsset
-	constructor: (textureFile, width, height)->
+		# calc and set uvs
+		uvWidth = @tileSet.tileWidth/@tileSet.imageWidth
+		uvHeight = @tileSet.tileHeight/@tileSet.imageHeight
+		uvX = uvWidth * @col
+		uvY = uvHeight * (@tileSet.rows - @row - 1)
+		for face in @geometry.faceVertexUvs[0]
+			for v in face
+				v.x = v.x * uvWidth + uvX
+				v.y = v.y * uvHeight + uvY
+		@geometry.uvsNeedUpdate = true
+
+		@material = @tileSet.material
+
+
+class TileSet
+	constructor: (@textureFile, @imageWidth, @imageHeight, @tileWidth, @tileHeight)->
+		@cols = @imageWidth / @tileWidth
+		@rows = @imageHeight / @tileWidth
+
 		@texture = THREE.ImageUtils.loadTexture textureFile
 		@material = new THREE.MeshBasicMaterial
 			map: @texture
@@ -19,17 +43,19 @@ class TileAsset
 			shading: THREE.NoShading
 			depthTest: true
 			depthWrite: false
-			# opacity: .9
 			transparent: true
-			# color: 0xff0000
-				
-		# console.log "mat", @material
-		@geometry = new THREE.PlaneGeometry( width, height);
+		
+		
 
-class Tile extends GameObject
-	constructor: (position, tileAsset)->
-		super()
-		@root.add new THREE.Mesh tileAsset.geometry, tileAsset.material
+		# @geometry = new THREE.PlaneGeometry( width, height);
+
+
+
+class TileObject
+	constructor: (@tile, position)->
+		#todo remove unneded object3d null wrapper
+		@root = new THREE.Object3D()
+		@root.add new THREE.Mesh tile.geometry, tile.material
 		@root.position.copy(position)
 
 	update: ->
@@ -48,36 +74,72 @@ class Level extends GameObject
 
 		$.getJSON "assets/level_1.json", @onLoad
 			
-	
-
-
 	onLoad: (data)=>
 		@data = data
 		# console.log @data
+		@tileSets = []
 		@tiles = []
-		for tileset in data.tilesets
-			@tiles[tileset.firstgid] = new TileAsset("assets/"+tileset.image, tileset.tileheight/32, tileset.tilewidth/32)
+
+		# load the tileSet metadata, texture, and create tile geometries
+		for tileSetData in data.tilesets
+			tileSet = new TileSet "assets/"+tileSetData.image, 
+				tileSetData.imagewidth, 
+				tileSetData.imageheight,
+				tileSetData.tilewidth,
+				tileSetData.tileheight
+
+			@tileSets.push tileSet
+
+			id = tileSetData.firstgid
+			for row in [0..tileSet.rows-1]
+				for col in [0..tileSet.cols-1]
+					tile = new Tile tileSet, row, col
+					@tiles[id] = tile
+					id++
+
+
 
 		fov_radians = 45 * (Math.PI / 180)
 		targetZ = 480 / (2 * Math.tan(fov_radians / 2) ) / 32.0;
-		for d, i in data.layers[0].data
-			if d > 0
-				row = Math.floor(i / data.layers[0].width)
-				col = i % data.layers[0].width
-				tile = new Tile(new THREE.Vector3(col, 14.5 - row, -targetZ), @tiles[d])
-				tile.root.position.x *= 2;
-				tile.root.position.y *= 2;
+		
 
-				tile.root.scale.set(2, 2, 2);
-				@add tile
+		# create tile objects that comprise backgrounds
+		layer = data.layers[0]
+		farBackground = new THREE.Object3D()
 
-		for d, i in data.layers[1].data
-			if d > 0
-				row = Math.floor(i / data.layers[0].width)
-				col = i % data.layers[0].width
-				tile = new Tile(new THREE.Vector3(col, 14.5 - row, 0), @tiles[d])
-				@add tile
+		for id, index in layer.data
+			if id > 0
+				row = Math.floor(index / layer.width)
 
+				col = index % layer.width
+				tileObject = new TileObject(@tiles[id], new THREE.Vector3(col, -row - 1, 0) )
+				
+				
+				farBackground.add tileObject.root	
+
+		@root.add farBackground
+		farBackground.position.y = 7.5 * 2
+		farBackground.position.z = -targetZ
+		
+		farBackground.scale.set(2, 2, 2)
+
+
+		layer = data.layers[1]
+		background = new THREE.Object3D()
+
+		for id, index in layer.data
+			if id > 0
+				row = Math.floor(index / layer.width)
+				col = index % layer.width
+				tileObject = new TileObject(@tiles[id], new THREE.Vector3(col, -row - 1, 0))
+				background.add tileObject.root
+
+		background.position.y = 7.5
+		
+		@root.add background
+
+
+		# load objects
 		for o in data.layers[2].objects 
 			enemy = new Enemies[o.type](new THREE.Vector3(o.x / 32, 7 - o.y / 32, util.random(-1, 1)))
 

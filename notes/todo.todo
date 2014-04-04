@@ -6,20 +6,23 @@
 
 -	Game Play
 	-	Level
-		.-	One endless level will work
 		+-	start loading level from Tiled level editor
-		-	tiles
-	
+		+-	load tiles
+		-	clean up tile loader
+		-	merge tile geometry: http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/
+
 	-	Overall Structure/Factor
 		- Improve, especially for Game/Level classes
 
 	-	Collsion Interface
-		-	Formalize
+		-	Formalize functions for providing bounding box, hitTarget(), takeHit()....
 
 	-	Player
 		+-	Move
 		+-	Shoot
 		-	Die when hit
+		-	Life counter
+		-	0 live, game over
 
 	-	Backgrounds
 		+- background
