@@ -24,8 +24,13 @@ class Tile
 		uvY = uvHeight * (@tileSet.rows - @row - 1)
 		for face in @geometry.faceVertexUvs[0]
 			for v in face
-				v.x = v.x * uvWidth + uvX
-				v.y = v.y * uvHeight + uvY
+				if v.x == 0
+					v.x = uvX
+				else
+					v.x = uvX + uvWidth * (31/32.0) #dirty hack to prevent slight oversample on tile showing hint of next tile on edge.
+
+				# v.x = v.x * uvWidth  + uvX 
+				v.y = v.y * uvHeight + uvY 
 		@geometry.uvsNeedUpdate = true
 
 		@material = @tileSet.material

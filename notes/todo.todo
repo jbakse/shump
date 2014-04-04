@@ -8,7 +8,8 @@
 	-	Level
 		+-	start loading level from Tiled level editor
 		+-	load tiles
-		-	clean up tile loader
+		+-	clean up tile loader
+		-	clean up tile loader more, make arbitray background counts with data loaded paralax distances
 		-	merge tile geometry: http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/
 
 	-	Overall Structure/Factor
