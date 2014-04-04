@@ -82,6 +82,7 @@ class Level extends GameObject
 
 		# load the tileSet metadata, texture, and create tile geometries
 		for tileSetData in data.tilesets
+			# load tileset data and texture
 			tileSet = new TileSet "assets/"+tileSetData.image, 
 				tileSetData.imagewidth, 
 				tileSetData.imageheight,
@@ -90,6 +91,7 @@ class Level extends GameObject
 
 			@tileSets.push tileSet
 
+			# create tile geometry
 			id = tileSetData.firstgid
 			for row in [0..tileSet.rows-1]
 				for col in [0..tileSet.cols-1]
@@ -98,53 +100,42 @@ class Level extends GameObject
 					id++
 
 
-
-		fov_radians = 45 * (Math.PI / 180)
-		targetZ = 480 / (2 * Math.tan(fov_radians / 2) ) / 32.0;
-		
-
 		# create tile objects that comprise backgrounds
-		layer = data.layers[0]
-		farBackground = new THREE.Object3D()
-
-		for id, index in layer.data
-			if id > 0
-				row = Math.floor(index / layer.width)
-
-				col = index % layer.width
-				tileObject = new TileObject(@tiles[id], new THREE.Vector3(col, -row - 1, 0) )
-				
-				
-				farBackground.add tileObject.root	
-
-		@root.add farBackground
+		farBackground = @loadTileLayer(data.layers[0])
 		farBackground.position.y = 7.5 * 2
+		fov_radians = 45 * (Math.PI / 180)
+		targetZ = 480 / (2 * Math.tan(fov_radians / 2) ) / 32.0
 		farBackground.position.z = -targetZ
-		
 		farBackground.scale.set(2, 2, 2)
-
-
-		layer = data.layers[1]
-		background = new THREE.Object3D()
-
-		for id, index in layer.data
-			if id > 0
-				row = Math.floor(index / layer.width)
-				col = index % layer.width
-				tileObject = new TileObject(@tiles[id], new THREE.Vector3(col, -row - 1, 0))
-				background.add tileObject.root
-
-		background.position.y = 7.5
+		console.log farBackground
+		@root.add farBackground
 		
+		background = @loadTileLayer(data.layers[1])
+		background.position.y = 7.5
+		console.log background
 		@root.add background
 
 
 		# load objects
 		for o in data.layers[2].objects 
 			enemy = new Enemies[o.type](new THREE.Vector3(o.x / 32, 7 - o.y / 32, util.random(-1, 1)))
-
 			enemy.active = false
 			@add enemy
+
+
+	loadTileLayer: (data)=>
+		layer = new THREE.Object3D()
+		for id, index in data.data
+			if id > 0
+				row = Math.floor(index / data.width)
+				col = index % data.width
+				tileObject = new TileObject(@tiles[id], new THREE.Vector3(col, -row - 1, 0) )
+				layer.add tileObject.root	
+		return layer
+		
+
+
+	
 
 	update: (delta)->
 		super(delta)
