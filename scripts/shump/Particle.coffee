@@ -2,7 +2,7 @@ GameObject = require './GameObject.coffee'
 util = require '../util.coffee'
 
 class Particle extends GameObject
-	particleTexture = THREE.ImageUtils.loadTexture "assets/particles/particle.png"
+	particleTexture = THREE.ImageUtils.loadTexture "assets/particles/particle2.png"
 	particleMaterial = new THREE.MeshBasicMaterial
 			map: particleTexture
 			shading: THREE.NoShading

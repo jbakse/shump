@@ -16,7 +16,7 @@
 		- Improve, especially for Game/Level classes
 
 	-	Collsion Interface
-		-	Formalize functions for providing bounding box, hitTarget(), takeHit()....
+		+-	Formalize functions for providing bounding box, hitTarget(), takeHit()....
 
 	-	Player
 		+-	Move
@@ -36,6 +36,10 @@
 		+-	Die when hit
 		-	Better factor weapons/bullets
 
+	-	Bullet
+		- is there  a cleaner way to override the model on the EnemyBullet? Maybe by making material a property rather than private?
+		- maybe just make an abstract bullet that doesn't have a model, and make bullet and enemy bullet extend and skin
+		
 	-	Boss
 		-	 Multi hits to kill
 		-	 Display health?
