@@ -27,4 +27,5 @@ class Input
 				@keyStates[@keyMap[e.which]] = false;
 			e.stopPropagation()
 
-module.exports = Input
+input = new Input()
+module.exports = input

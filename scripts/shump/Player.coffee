@@ -9,7 +9,7 @@ Particle = require './Particle.coffee'
 Shump = require './shump.coffee'
 
 modelLoader = new ModelLoader()
-input = new Input()
+# input = new Input()
 
 class Player extends CollisionObject
 
@@ -30,15 +30,15 @@ class Player extends CollisionObject
 
 
 	update: (delta)=>
-		if input.keyStates['up']
+		if Input.keyStates['up']
 			@root.position.y += 10 * delta;
-		if input.keyStates['down']
+		if Input.keyStates['down']
 			@root.position.y -= 10 * delta;
-		if input.keyStates['left']
+		if Input.keyStates['left']
 			@root.position.x -= 10 * delta;
-		if input.keyStates['right']
+		if Input.keyStates['right']
 			@root.position.x += 10 * delta;
-		if input.keyStates['fire_primary']
+		if Input.keyStates['fire_primary']
 			@fire_primary()
 
 	fire_primary: ()->
@@ -65,7 +65,16 @@ class Player extends CollisionObject
 		for i in [0..200]
 			@parent.add new Particle(@root.position, 8)
 
-		util.after 1000, Shump.game.reset
+		pos = @root.position
+		parent = @parent
+		util.after 1000, ()->
+			bullet = new Weapons.Bullet(pos)
+			bullet.hp = 100
+			bullet.dp = 10
+			bullet.collisionRadius = 150
+			parent.add bullet
+
+		util.after 1250, Shump.game.resetPlayer
 		super()
 
 

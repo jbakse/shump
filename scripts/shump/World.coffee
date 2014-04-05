@@ -1,5 +1,6 @@
 Base = require './Base.coffee'
 
+Input = require './Input.coffee'
 
 class World extends Base
 	
