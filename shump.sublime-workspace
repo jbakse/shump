@@ -4,12 +4,44 @@
 		"selected_items":
 		[
 			[
-				"on",
-				"onComplete"
+				"game",
+				"gameOverScreen"
 			],
 			[
-				"com",
-				"completeCallback"
+				"p",
+				"position"
+			],
+			[
+				"Game",
+				"GameOverScreen"
+			],
+			[
+				"loadT",
+				"loadTileLayer"
+			],
+			[
+				"im",
+				"imageWidth"
+			],
+			[
+				"tile",
+				"tileSet"
+			],
+			[
+				"til",
+				"tileWidth"
+			],
+			[
+				"ima",
+				"imageWidth"
+			],
+			[
+				"proc",
+				"processMaterial"
+			],
+			[
+				"Mod",
+				"ModelLoader"
 			],
 			[
 				"ma",
@@ -28,42 +60,18 @@
 	"buffers":
 	[
 		{
-			"file": "scripts/main.coffee",
-			"settings":
-			{
-				"buffer_size": 282,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "scripts/shump/shump.coffee",
 			"settings":
 			{
-				"buffer_size": 3380,
+				"buffer_size": 6674,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "scripts/shump/Sound.coffee",
+			"file": "scripts/shump/Player.coffee",
 			"settings":
 			{
-				"buffer_size": 1440,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "notes/snippets.coffee",
-			"settings":
-			{
-				"buffer_size": 1153,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "index.html",
-			"settings":
-			{
-				"buffer_size": 380,
+				"buffer_size": 1820,
 				"line_ending": "Unix"
 			}
 		}
@@ -71,12 +79,28 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 159.0,
+		"height": 375.0,
 		"selected_items":
 		[
 			[
 				"tab",
 				"Indentation: Convert to Tabs"
+			],
+			[
+				"syntaxcoff",
+				"Set Syntax: CoffeeScript"
+			],
+			[
+				"synco",
+				"Set Syntax: CoffeeScript"
+			],
+			[
+				"ena",
+				"Package Control: Enable Package"
+			],
+			[
+				"ENA",
+				"Package Control: Enable Package"
 			],
 			[
 				"ins",
@@ -132,37 +156,44 @@
 	},
 	"file_history":
 	[
-		"/Users/jbakse/Desktop/shump/scripts/shump/shump.coffee",
-		"/Users/jbakse/Desktop/shump/scripts/main.coffee",
-		"/Users/jbakse/Desktop/shump/scripts/shump/ModelLoader.coffee",
-		"/Users/jbakse/Desktop/shump/notes/todo.todo",
-		"/Users/jbakse/Desktop/shump/scripts/shump/Sound.coffee",
-		"/Users/jbakse/Desktop/shump/lib/three.js",
-		"/Users/jbakse/Desktop/shump/shump.sublime-project",
-		"/Users/jbakse/Desktop/shump/scripts/shump/Score.coffee",
-		"/Users/jbakse/Desktop/shump/assets/level_1.json",
-		"/Users/jbakse/Desktop/shump/scripts/shump/Weapons.coffee",
-		"/Users/jbakse/Desktop/shump/scripts/shump/Enemies.coffee",
-		"/Users/jbakse/Desktop/shump/scripts/shump/Player.coffee",
-		"/Users/jbakse/Desktop/shump/scripts/shump/Particle.coffee",
-		"/Users/jbakse/Desktop/shump/styles/main.css",
-		"/Users/jbakse/Desktop/shump/assets/ships/ship.js",
-		"/Users/jbakse/Desktop/shump/package.json",
-		"/Users/jbakse/Desktop/shump/assets/sounds/explosion.wav",
-		"/Users/jbakse/Desktop/shump/index.html",
-		"/Users/jbakse/Desktop/shump/gulpfile.js",
-		"/Users/jbakse/Desktop/shump/scripts/app.js",
-		"/Users/jbakse/Desktop/shump/scripts/shump.coffee",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/CollisionObject.coffee",
+		"/Users/jbakse/Documents/projects/shump/assets/level_1.json",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/Weapons.coffee",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/Player.coffee",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/Score.coffee",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/shump.coffee",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/Input.coffee",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/World.coffee",
+		"/Users/jbakse/Documents/projects/shump/notes/todo.todo",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/Particle.coffee",
+		"/Users/jbakse/Documents/projects/shump/shump.sublime-project",
+		"/Users/jbakse/Documents/projects/shump/styles/main.css",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/GameObject.coffee",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/Enemies.coffee",
+		"/Users/jbakse/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/jbakse/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/jbakse/Documents/projects/shump/index.html",
+		"/Users/jbakse/Documents/projects/shump/scripts/main.coffee",
+		"/Users/jbakse/Documents/projects/shump/lib/THREEx.FullScreen.js",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/Base.coffee",
+		"/Users/jbakse/Documents/projects/shump/production/grid_cube.blend",
+		"/Users/jbakse/Documents/projects/shump/package.json",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/ModelLoader.coffee",
+		"/Users/jbakse/Documents/projects/shump/notes/snippets.coffee",
+		"/Users/jbakse/Documents/projects/shump/assets/test/malard.js",
+		"/Users/jbakse/Documents/projects/shump/production/malard.blend",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/Sound.coffee",
+		"/Users/jbakse/Documents/projects/shump/lib/three.js",
+		"/Users/jbakse/Documents/projects/shump/assets/music.wav",
+		"/Users/jbakse/Documents/projects/shump/scripts/app.js",
+		"/Users/jbakse/Documents/projects/shump/assets/explosion.wav",
 		"/Users/jbakse/Documents/projects/shump/scripts/util.coffee",
-		"/Users/jbakse/Documents/projects/shump/scripts/shump_core.coffee",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump/shump_core.coffee",
 		"/Users/jbakse/Documents/projects/shump/gulpfile.js",
 		"/Users/jbakse/Documents/projects/shump/scripts/shump.coffee",
+		"/Users/jbakse/Documents/projects/shump/scripts/shump_core.coffee",
 		"/Users/jbakse/Documents/projects/shump/scripts/main.js.map",
 		"/Users/jbakse/Documents/projects/shump/assets/grid_cube.js",
-		"/Users/jbakse/Documents/projects/shump/scripts/app.js",
-		"/Users/jbakse/Documents/projects/shump/package.json",
-		"/Users/jbakse/Documents/projects/shump/scripts/main.coffee",
-		"/Users/jbakse/Documents/projects/shump/shump.sublime-project",
 		"/Users/jbakse/Documents/projects/shump/node_modules/three/examples/js/exporters/HTMLExporter.js",
 		"/Users/jbakse/Documents/projects/shump/node_modules/gulp-less/node_modules/less/node_modules/clean-css/lib/colors/hsl-to-hex.js",
 		"/Users/jbakse/Documents/projects/shump/node_modules/gulp/node_modules/semver/head.js",
@@ -171,11 +202,6 @@
 		"/Users/jbakse/Dropbox/Justin_BNS/_projects/Data_Design_Code/week_8/realtime_lecture.md",
 		"/Users/jbakse/Library/Application Support/Sublime Text 3/Packages/MarkdownEditing/Markdown.sublime-settings",
 		"/Users/jbakse/Library/Application Support/Sublime Text 3/Packages/User/Markdown.sublime-settings",
-		"/Users/jbakse/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/Users/jbakse/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
-		"/Users/jbakse/Documents/projects/shump/notes/snippets.coffee",
-		"/Users/jbakse/Documents/projects/shump/styles/main.css",
-		"/Users/jbakse/Documents/projects/shump/index.html",
 		"/Users/jbakse/Documents/projects/shump/node_modules/gulp/node_modules/chalk/node_modules/ansi-styles/ansi-styles.js",
 		"/Users/jbakse/Documents/projects/shump/node_modules/gulp-watch/test/streammode-test.js",
 		"/Users/jbakse/Documents/projects/shump/assets/ship.js",
@@ -199,27 +225,96 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"load",
-			"loader.loadPromise",
-			"SoundLoad",
-			"sounds",
-			"promises",
-			"Sound",
-			"complete",
-			"sound",
-			"tileAsset",
-			"onComplete",
+			"=>",
+			"position.x",
+			"camera",
+			" @player1",
+			"player",
+			"input",
+			"Input",
+			".75",
+			"light",
+			"Bullet",
+			"_acti",
+			"			\n",
+			"_",
+			"active",
+			"colliders",
+			"active",
+			"dead",
+			"data",
+			"loadTileLayer",
+			"camera",
+			"on",
 			"log",
-			"onComplete",
-			"loadedCount",
-			"completedCount",
-			"requestedCount",
-			" = ",
-			"SoundLoader",
-			"load",
-			"completeCallback",
-			"particle",
-			"png",
+			"camera",
+			"tileObject",
+			"root",
+			"scale",
+			"log",
+			"console.log",
+			"Width",
+			"TileObject",
+			"tileObject",
+			"Data",
+			"data",
+			"Data",
+			"data",
+			"tileAsset",
+			"data.layers[0]",
+			"=\n",
+			"data.layers[0]",
+			"d",
+			"gid",
+			"tileSet",
+			"tileset",
+			"test_tiles",
+			"4",
+			"bars",
+			"shumpAspect",
+			"$(window).height()",
+			"$(window).width()",
+			"window",
+			"screen.width",
+			"screen.height",
+			"shump",
+			"world",
+			"angle",
+			"@",
+			"PI",
+			"push",
+			"@",
+			"uv",
+			"processQuad",
+			"processCamera",
+			"processScene",
+			"background_",
+			"then",
+			"play",
+			"explosion",
+			"  ",
+			";",
+			");\n                 ",
+			"                           ",
+			"                          ",
+			"                         ",
+			"                        ",
+			"                       ",
+			"                      ",
+			"                     ",
+			"                    ",
+			"//",
+			"world",
+			"console",
+			"util",
+			"Particle",
+			"Player",
+			"CollisionObject",
+			"Particle",
+			"lastEn",
+			"enemy",
+			"bull",
+			"ModelLoa",
 			"lastFire",
 			"bullet",
 			"slice",
@@ -257,25 +352,7 @@
 			"\"success\"",
 			"console.log",
 			"off",
-			"console.log",
-			"model",
-			"object",
-			"trigger",
-			"extends Base",
-			".load",
-			"load",
-			"loadedModels",
-			"json",
-			"loadAjaxJSON",
-			"onloadstart",
-			"json",
-			"loadjson",
-			"ModelLoader",
-			"init",
-			";",
-			"mesh",
-			"console.log",
-			"update"
+			"console.log"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -293,52 +370,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "scripts/main.coffee",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 282,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								267,
-								269
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "scripts/shump/shump.coffee",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3380,
+						"buffer_size": 6674,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								254,
-								259
+								66,
+								76
 							]
 						],
 						"settings":
@@ -347,95 +396,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2668.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "scripts/shump/Sound.coffee",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1440,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1074,
-								1074
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 634.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "notes/snippets.coffee",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1153,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1153,
-								1153
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 437.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "index.html",
-					"semi_transient": true,
+					"buffer": 1,
+					"file": "scripts/shump/Player.coffee",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 380,
+						"buffer_size": 1820,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								95,
+								110
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -488,48 +481,80 @@
 		"selected_items":
 		[
 			[
+				"coll",
+				"scripts/shump/CollisionObject.coffee"
+			],
+			[
+				"scor",
+				"scripts/shump/Score.coffee"
+			],
+			[
+				"inpu",
+				"scripts/shump/Input.coffee"
+			],
+			[
+				"play",
+				"scripts/shump/Player.coffee"
+			],
+			[
+				"weap",
+				"scripts/shump/Weapons.coffee"
+			],
+			[
+				"shum",
+				"scripts/shump/shump.coffee"
+			],
+			[
+				"worl",
+				"scripts/shump/World.coffee"
+			],
+			[
 				"todo",
 				"notes/todo.todo"
 			],
 			[
-				"ma",
-				"scripts/main.coffee"
+				"wor",
+				"scripts/shump/World.coffee"
 			],
 			[
-				"shump",
-				"scripts/shump/shump.coffee"
+				"par",
+				"scripts/shump/Particle.coffee"
 			],
 			[
-				"load",
-				"scripts/shump/ModelLoader.coffee"
+				"pla",
+				"scripts/shump/Player.coffee"
 			],
 			[
-				"sc",
-				"scripts/shump/Score.coffee"
+				"enem",
+				"scripts/shump/Enemies.coffee"
 			],
 			[
-				"mod",
-				"scripts/shump/ModelLoader.coffee"
+				"tod",
+				"notes/todo.todo"
+			],
+			[
+				"to",
+				"notes/todo.todo"
+			],
+			[
+				"ene",
+				"scripts/shump/Enemies.coffee"
 			],
 			[
 				"wea",
 				"scripts/shump/Weapons.coffee"
 			],
 			[
-				"sou",
-				"scripts/shump/Sound.coffee"
-			],
-			[
-				"pl",
-				"scripts/shump/Player.coffee"
-			],
-			[
-				"p",
-				"scripts/shump/Particle.coffee"
+				"model",
+				"scripts/shump/ModelLoader.coffee"
 			],
 			[
 				"en",
 				"scripts/shump/Enemies.coffee"
+			],
+			[
+				"toto",
+				"notes/todo.todo"
 			],
 			[
 				"gu",
@@ -552,11 +577,15 @@
 	},
 	"select_symbol":
 	{
-		"height": 0.0,
+		"height": 71.0,
 		"selected_items":
 		[
+			[
+				"sound",
+				"loadSound"
+			]
 		],
-		"width": 0.0
+		"width": 378.0
 	},
 	"settings":
 	{

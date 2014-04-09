@@ -10,6 +10,9 @@ Sound = require './Sound.coffee'
 Score = require './Score.coffee'
 
 class Tile
+	
+
+
 	constructor: (@tileSet, @row, @col)->
 		@geometry = new THREE.PlaneGeometry( @tileSet.tileWidth / 32, @tileSet.tileHeight / 32)
 		for v in @geometry.vertices
@@ -228,6 +231,7 @@ class Game
 		
 		@state = "home"
 		@world.scene.add @homeScreen.root
+
 
 		$(window).keydown (e)=>
 			if @state == "home"
