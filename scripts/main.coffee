@@ -25,7 +25,7 @@ $("#debug").append("""<span id="levelChildren">""")
 
 
 updateDebug = ()->
-	$("#levelChildren").text """level.children = #{shump.game.level.children.length}"""
+	$("#levelChildren").text """level.children = #{shump.Game.level.children.length}"""
 
 
 shump.game.world.on "update", updateDebug

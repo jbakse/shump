@@ -4,8 +4,31 @@
 	+-	Instructions
 	+-	Start
 
+-	Factoring
+	-	change exports on modules that are single class example( `new Game()`, not `new Game.Game()` )
+
 -	Game Play
+	-	Game Sequencing
+		-	Work on Game Class to make it handle the major events (birth, death, game over, etc)
+		-	Game Class can control hud as well
+		-	Should be listenging to events probably
+
+
+	-	Compositing Engine
+		-	Clean up the way the world is rendered. Deal with multiple cameras/scenes in a graph.
+			graph might be like this
+
+			onto screen
+				onto texture
+					~ blank
+					+ render level
+					* post fx
+					+ render game over
+					* post fx
+
+
 	-	Level
+		-	Level Class should deal with stepping the camera, pumping the collision detector, dispatching events, reacting to in game event triggers (killing boss, opening door when switch hit)
 		+-	start loading level from Tiled level editor
 		+-	load tiles
 		+-	clean up tile loader

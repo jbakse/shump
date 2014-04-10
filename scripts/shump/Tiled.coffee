@@ -40,34 +40,7 @@ class TiledMap
 			if layerData.type == "objectgroup"
 				@layers[layerData.name] = new ObjectGroup(layerData)
 
-		# # create tile objects that comprise backgrounds
-
-		# data.layers
-
-		# @farBackground = @loadTileLayer(data.layers[0])
-		# @background = 
-
-
-		# farBackground.position.y = 7.5 * 2
-		# fov_radians = 45 * (Math.PI / 180)
-		# targetZ = 480 / (2 * Math.tan(fov_radians / 2) ) / 32.0
-		# farBackground.position.z = -targetZ
-		# farBackground.scale.set(2, 2, 2)
-		# console.log farBackground
-		# @root.add farBackground
-		
-		# background = @loadTileLayer(data.layers[1])
-		# background.position.y = 7.5
-		# console.log background
-		# @root.add background
-
-
-		# # load objects
-		# for o in data.layers[2].objects 
-		# 	enemy = new Enemies[o.type](new THREE.Vector3(o.x / 32, 7 - o.y / 32, util.random(-1, 1)))
-		# 	enemy.active = false
-		# 	@add enemy
-
+	
 
 	loadTileLayer: (data)=>
 		layer = new THREE.Object3D()
@@ -153,7 +126,6 @@ class TileObject
 
 class ObjectGroup
 	constructor: (@data)->
-		console.log @data
 		@objects = []
 		for objectData in @data.objects 
 			enemy = new Enemies[objectData.type](new THREE.Vector3(objectData.x / 32, 7 - objectData.y / 32, 0))
