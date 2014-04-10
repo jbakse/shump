@@ -25,17 +25,20 @@ class Level extends GameObject
 
 		
 		mapPromise = Tiled.load('assets/level_1.json')
-		mapPromise.then (map)=>
-			map.layers.background.root.position.y = 7.5
+		readyPromise = mapPromise.then (map)=>
 			@root.add(map.layers.background.root)
+			map.layers.background.root.position.y = 7.5
 
-			map.layers.midground.root.position.y = 7.5
 			@root.add(map.layers.midground.root)
+			map.layers.midground.root.position.y = 7.5
 
-		# @tiledLevel = new TiledLevel("assets/level_1.json")
+			for object in map.layers.enemies.objects
+				@add object
 
-
-		# $.getJSON "assets/level_1.json", @onLoad
+		
+		readyPromise.catch (error)->
+			console.error error
+		
 			
 	
 		

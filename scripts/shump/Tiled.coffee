@@ -1,3 +1,4 @@
+Enemies = require './Enemies.coffee'
 
 exports.load = load = (url) ->
 	return new Promise (resolve, reject) =>
@@ -37,7 +38,7 @@ class TiledMap
 			if layerData.type == "tilelayer"
 				@layers[layerData.name] = new TileLayer(this, layerData)
 			if layerData.type == "objectgroup"
-				@layers[layerData.name] = new ObjectGroup(this, layerData)
+				@layers[layerData.name] = new ObjectGroup(layerData)
 
 		# # create tile objects that comprise backgrounds
 
@@ -118,15 +119,13 @@ class Tile
 				if v.x == 0
 					v.x = uvX
 				else
-					v.x = uvX + uvWidth * (31.5/32.0) # todo dirty hack to prevent slight oversample on tile showing hint of next tile on edge.
+					v.x = uvX + uvWidth # * (31.5/32.0) # todo dirty hack to prevent slight oversample on tile showing hint of next tile on edge.
 
 				if v.y == 0
 					v.y = uvY
 				else
-					v.y = uvY + uvHeight * (31.5/32.0) # todo dirty hack to prevent slight oversample on tile showing hint of next tile on edge.					
+					v.y = uvY + uvHeight # * (31.5/32.0) # todo dirty hack to prevent slight oversample on tile showing hint of next tile on edge.					
 		@geometry.uvsNeedUpdate = true
-
-		console.log "geo", @geometry.faceVertexUvs[0]
 
 		@material = @tileSet.material
 
@@ -154,3 +153,8 @@ class TileObject
 
 class ObjectGroup
 	constructor: (@data)->
+		console.log @data
+		@objects = []
+		for objectData in @data.objects 
+			enemy = new Enemies[objectData.type](new THREE.Vector3(objectData.x / 32, 7 - objectData.y / 32, 0))
+			@objects.push enemy

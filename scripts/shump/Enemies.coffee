@@ -24,6 +24,7 @@ class Basic extends CollisionObject
 		@age = 0
 		@hasFired = false
 
+		@active = false
 
 	update: (delta)->
 		super(delta)
