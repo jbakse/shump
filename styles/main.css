@@ -10,17 +10,12 @@ body
   font-style: normal
 }
 
-body { 
+body 
+{ 
 	font-family: 'Silkscreen', sans; 
 	font-smooth: never;
 	-webkit-font-smoothing : none;
 }
-h1 {
-	font-weight: normal;
-	font-size: 25px;
-	
-}
-
 
 #shump.fullscreen {
 	/*border: 1px solid red;*/
