@@ -35,8 +35,6 @@
 		-	clean up tile loader more, make arbitray background counts with data loaded paralax distances
 		-	merge tile geometry: http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/
 
-	-	Overall Structure/Factor
-		- Improve, especially for Game/Level classes
 
 	-	Collsion Interface
 		+-	Formalize functions for providing bounding box, hitTarget(), takeHit()....
@@ -44,7 +42,7 @@
 	-	Player
 		+-	Move
 		+-	Shoot
-		-	Die when hit
+		+-	Die when hit
 		-	Life counter
 		-	0 live, game over
 

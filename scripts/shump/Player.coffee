@@ -74,7 +74,7 @@ class Player extends CollisionObject
 			bullet.collisionRadius = 150
 			parent.add bullet
 
-		util.after 1250, Shump.game.resetPlayer
+		# util.after 1250, Shump.game.resetPlayer
 		super()
 
 
