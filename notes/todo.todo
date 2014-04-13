@@ -8,33 +8,37 @@
 	-	change exports on modules that are single class example( `new Game()`, not `new Game.Game()` )
 
 -	Game Play
-	-	Game Sequencing
-		-	Work on Game Class to make it handle the major events (birth, death, level changes, game over, etc)
-		-	Game Class can control hud as well
-		-	Should be listenging to events probably
+	+-	Game Sequencing
+		+-	Work on Game Class to make it handle the major events (birth, death, level changes, game over, etc)
+		+-	Game Class can control hud as well
+		+-	Should be listenging to events probably
 
 
-	-	Compositing Engine
-		-	Clean up the way the world is rendered. Deal with multiple cameras/scenes in a graph.
+	+-	Compositing Engine
+		+-	Clean up the way the world is rendered. Deal with multiple cameras/scenes in a graph.
 			graph might be like this
 
-			onto screen
-				onto texture
-					~ blank
-					+ render level
-					* post fx
-					+ render game over
-					* post fx
+			
 
 
 	-	Level
-		-	Level Class should deal with stepping the camera, pumping the collision detector, dispatching events, reacting to in game event triggers (killing boss, opening door when switch hit)
+		-	Level Class should deal with stepping the camera
+			+-	pumping the collision detector
+			+-	dispatching events
+			-	reacting to in game event triggers (killing boss, opening door when switch hit)
+		
 		+-	start loading level from Tiled level editor
 		+-	load tiles
 		+-	clean up tile loader
+		
 		-	clean up tile loader more, make arbitray background counts with data loaded paralax distances
 		-	merge tile geometry: http://learningthreejs.com/blog/2011/10/05/performance-merging-geometry/
 
+	-	Documentation
+		-	Document the main classes from which things inherit
+			-	Game Object
+			-	Collision Object
+			-	Methods, Events, Properties
 
 	-	Collsion Interface
 		+-	Formalize functions for providing bounding box, hitTarget(), takeHit()....
@@ -43,8 +47,8 @@
 		+-	Move
 		+-	Shoot
 		+-	Die when hit
-		-	Life counter
-		-	0 live, game over
+		+-	Life counter
+		+-	0 live, game over
 
 	-	Backgrounds
 		+- background
@@ -55,12 +59,12 @@
 		+-	Move
 		+-	Shoot
 		+-	Die when hit
-		-	Better factor weapons/bullets
+		
 		- Abstract Enemy (see bullet, abstract)
 
 	-	Bullet
-		- is there  a cleaner way to override the model on the EnemyBullet? Maybe by making material a property rather than private?
-		- maybe just make an abstract bullet that doesn't have a model, and make bullet and enemy bullet extend and skin
+		-	is there  a cleaner way to override the model on the EnemyBullet? Maybe by making material a property rather than private?
+		-	maybe just make an abstract bullet that doesn't have a model, and make bullet and enemy bullet extend and skin
 		
 	-	Boss
 		-	 Multi hits to kill
@@ -100,7 +104,7 @@
 
 	-	Memory
 		-	Reduce Garbage Colleciton
-		
+
 -	Game Over Screen
 	+-	Return to Title Screen on Keypress   
 
@@ -110,3 +114,18 @@
 -	Sound FX
 
 
+
+
+
+
+
+Notes:
+
+
+onto screen
+				onto texture
+					~ blank
+					+ render level
+					* post fx
+					+ render game over
+					* post fx

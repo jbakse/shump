@@ -37,15 +37,15 @@ class exports.ScreenEffect
 
 					//misalign rgb
 					o.r = texture2D( tDiffuse, vUv + vec2(0.0, -0.001) ).r;
-					o.g = texture2D( tDiffuse, vUv + vec2(0.0, 0.001) ).r;
-					o.b = texture2D( tDiffuse, vUv + vec2(0.0, 0.003) ).r;
+					o.g = texture2D( tDiffuse, vUv + vec2(0.0, 0.001) ).g;
+					o.b = texture2D( tDiffuse, vUv + vec2(0.0, 0.003) ).b;
 
 					//scanlines
 					o.r *= sin(vUv.y * 240.0 * 6.28) * .25 + 1.0;
 					o.g *= sin(vUv.y * 240.0 * 6.28) * .25 + 1.0;
 					o.b *= sin(vUv.y * 240.0 * 6.28) * .25 + 1.0;
 
-					o *= 0.9 + 1.0*16.0*vUv.x*vUv.y*(1.0-vUv.x)*(1.0-vUv.y);
+					o *= 0.5 + 1.0*16.0*vUv.x*vUv.y*(1.0-vUv.x)*(1.0-vUv.y);
 					
 
 					// set the output color

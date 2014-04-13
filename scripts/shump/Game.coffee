@@ -112,9 +112,7 @@ class Game extends Base
 		if @state == "game_over"
 			@renderer.render @level.scene, @level.camera, @worldTexture, true
 			@renderer.render @gameOverScreen.scene, @gameOverScreen.camera, @worldTexture, false
-
-
-		
+			
 		@renderer.render @screenEffect.scene, @screenEffect.camera
 
 
