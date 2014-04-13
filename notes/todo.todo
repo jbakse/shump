@@ -67,9 +67,9 @@
 		-	maybe just make an abstract bullet that doesn't have a model, and make bullet and enemy bullet extend and skin
 		
 	-	Boss
-		-	 Multi hits to kill
+		+-	 Multi hits to kill
 		-	 Display health?
-		-	 Dies
+		+-	 Dies
 		
 	-	Bullets
 		+-	Move

@@ -27,3 +27,26 @@ $("#debug").append("""<span id="levelChildren">""")
 updateDebug = ()->
 	$("#levelChildren").text """level.children = #{shump.Game.level.children.length}"""
 
+
+
+# testIt = ()->
+# 	console.log "testIt"
+
+# class MySuper
+# 	test: "MySuperTest"
+# 	anotherThing: testIt()
+# 	constructor: ()->
+# 		console.log @test
+
+
+
+# class MySub extends MySuper
+# 	test: "MySubTest"
+
+
+
+# new MySub()
+# new MySub()
+# new MySub()
+# new MySub()
+# new MySuper()
