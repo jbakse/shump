@@ -44,6 +44,8 @@ class Level extends GameObject
 		for object in map.layers.enemies.objects
 			@add object
 
+		@trigger "ready"
+
 	insertPlayer: ()=>
 		@player1 = new Player()
 		@add @player1
@@ -51,7 +53,7 @@ class Level extends GameObject
 		@player1.root.position.z = 0
 
 		@player1.on "die", ()=>
-			util.after 1000, @insertPlayer
+			@trigger "playerDie"
 
 	update: (delta)->
 		super(delta)

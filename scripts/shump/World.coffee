@@ -94,6 +94,7 @@ class World extends Base
 		if (delta < .5) 
 			@trigger "update", delta
 
+		@renderer.autoClear = false
 		@renderer.render( @scene, @camera, @worldTexture, true );
 
 

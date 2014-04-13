@@ -1,3 +1,4 @@
+util = require '../util.coffee'
 GameObject = require './GameObject.coffee'
 
 class HomeScreen extends GameObject
@@ -9,9 +10,22 @@ class HomeScreen extends GameObject
 			transparent: true
 	
 	geometry = new THREE.PlaneGeometry( 20, 15)
+
 	constructor: ()->
 		super()
-		@root.add new THREE.Mesh geometry, material
+
+		@scene = new THREE.Scene()
+		@scene.add @root
+		
+		@camera = new THREE.PerspectiveCamera(45, 640 / 480, 1, 10000)	
+		@camera.position.z = util.layerSpacing() * 1
+		@scene.add @camera
+
+		screen = new THREE.Mesh geometry, material
+		screen.scale.set(.25, .25, .25)
+		screen.position.z =  util.layerSpacing() * .75
+		@root.add screen 
+
 
 exports.HomeScreen = HomeScreen
 
@@ -26,6 +40,14 @@ class GameOverScreen extends GameObject
 	geometry = new THREE.PlaneGeometry( 20, 15)
 	constructor: ()->
 		super()
+
+		@scene = new THREE.Scene()
+		@scene.add @root
+		
+		@camera = new THREE.PerspectiveCamera(45, 640 / 480, 1, 10000)	
+		@camera.position.z = util.layerSpacing() * 1
+		@scene.add @camera
+
 		@root.add new THREE.Mesh geometry, material
 
 exports.GameOverScreen = GameOverScreen

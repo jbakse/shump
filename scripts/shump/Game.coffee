@@ -1,19 +1,22 @@
-
-
-
-Sound = require './Sound.coffee'
-Score = require './Score.coffee'
+util = require '../util.coffee'
+Base = require './Base.coffee'
 Level = require './Level.coffee'
-
-GameObject = require './GameObject.coffee'
-
 Screens = require './Screens.coffee'
 
-Base = require './Base.coffee'
+
+
+# Score = require './Score.coffee'
+
+# GameObject = require './GameObject.coffee'
+
+
 
 class Game extends Base
 	constructor: ()->
 		super()
+		
+		# initialize state
+		@lives = 3
 
 		# create renderer
 		@renderer = new THREE.WebGLRenderer()
@@ -23,11 +26,23 @@ class Game extends Base
 		# clock
 		@clock = new THREE.Clock()
 
-		# level
-		@level = new Level.Level(@world)
+		
 
-		# initialize state
-		@lives = 3
+		# other screens
+		@state = "home"
+		@homeScreen = new Screens.HomeScreen()
+		@gameOverScreen = new Screens.GameOverScreen()
+
+		# todo, clean this up let screens handle their input and send messages when they are done. maybe through a global event broadcaster
+		$(window).keydown (e)=>
+			if @state == "home"
+				@state = "loading"
+				@startGame()
+				return
+
+			if @state == "game_over"
+				@state = "home"
+				return
 
 		# load assets
 
@@ -35,11 +50,49 @@ class Game extends Base
 		util.after 1, ()=>
 			@animate()
 
+
+	startGame: ()->
+		@lives = 3
+
+		# level
+		@level = new Level.Level()
+		@level.on "playerDie", ()=>
+			@lives--
+			if @lives > 0
+				util.after 1000, @level.insertPlayer
+			else
+				@state = "game_over"
+
+		@level.on "ready", ()=>
+			@state = "play"
+
 	update: (delta)=>
-		@level.update(delta)
+		if @state == "home"
+			@homeScreen.update(delta)
+
+		if @state == "play"
+			@level.update(delta)
+
+		if @state == "game_over"
+			@level.update(delta)
+			@gameOverScreen.update(delta)
+
 
 	render: ()=>
-		@renderer.render @level.scene, @level.camera
+		@renderer.autoClear = false
+
+		if @state == "home"
+			@renderer.render @homeScreen.scene, @homeScreen.camera
+		
+		if @state == "play"	
+			@renderer.render @level.scene, @level.camera
+			@renderer.render @homeScreen.scene, @level.camera, undefined, false
+
+		if @state == "game_over"
+			@renderer.render @level.scene, @level.camera
+			@renderer.render @gameOverScreen.scene, @gameOverScreen.camera, undefined, false
+
+
 
 	animate: =>
 		# update the game physics
