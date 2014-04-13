@@ -2,10 +2,7 @@ util = require '../util.coffee'
 Base = require './Base.coffee'
 Level = require './Level.coffee'
 Screens = require './Screens.coffee'
-
-
-
-# Score = require './Score.coffee'
+Score = require './Score.coffee'
 
 # GameObject = require './GameObject.coffee'
 
@@ -32,6 +29,8 @@ class Game extends Base
 		@stats.domElement.style.top = '0px'
 		$("#shump")[0].appendChild( @stats.domElement )
 		
+		# hud
+		Score.displayElement = $("""<h1>Score:</h1>""").appendTo $("#shump")
 
 		# other screens
 		@state = "home"
@@ -58,6 +57,7 @@ class Game extends Base
 
 	startGame: ()->
 		@lives = 3
+		Score.set 0
 
 		# level
 		@level = new Level.Level()
