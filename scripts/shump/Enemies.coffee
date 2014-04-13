@@ -1,11 +1,11 @@
 
 Sound = require './Sound.coffee'
-CollisionObject = require './CollisionObject.coffee'
+Collisions = require './Collisions.coffee'
 Particle = require './Particle.coffee'
 Weapons = require './Weapons.coffee'
 
 
-class Basic extends CollisionObject
+class Basic extends Collisions.CollisionObject
 	enemyTexture = THREE.ImageUtils.loadTexture "assets/enemies/enemy.png"
 	enemyMaterial = new THREE.MeshBasicMaterial
 			map: enemyTexture

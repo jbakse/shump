@@ -1,5 +1,9 @@
-class GameObject
+Base = require './Base.coffee'
+
+class GameObject extends Base
 	constructor: ->
+		super()
+
 		@parent = undefined
 		@children = []
 		@root = new THREE.Object3D()
@@ -35,5 +39,6 @@ class GameObject
 
 	die: ()->
 		@dead = true;
+		@trigger "die"
 
 module.exports = GameObject

@@ -9,18 +9,9 @@ class World extends Base
 
 		w = 640
 		h = 480
-		@camera = new THREE.PerspectiveCamera(45, w / h, 1, 10000)
-		fov_radians = 45 * (Math.PI / 180)
-
-		targetZ = 480 / (2 * Math.tan(fov_radians / 2) ) / 32.0;
-
-		@camera.position.z = targetZ
-		
-		@scene = new THREE.Scene()
 		
 		@renderer = new THREE.WebGLRenderer()
 		@renderer.setSize w, h
-		# @renderer.sortObjects = false
 		$("#shump")[0].appendChild @renderer.domElement
 
 

@@ -1,7 +1,7 @@
 util = require '../util.coffee'
 
 Sound = require './Sound.coffee'
-CollisionObject = require './CollisionObject.coffee'
+Collisions = require './Collisions.coffee'
 ModelLoader = require './ModelLoader.coffee'
 Input = require './Input.coffee'
 Weapons = require './Weapons.coffee'
@@ -11,7 +11,7 @@ Shump = require './shump.coffee'
 modelLoader = new ModelLoader()
 # input = new Input()
 
-class Player extends CollisionObject
+class Player extends Collisions.CollisionObject
 
 	constructor: ()->
 		super()
@@ -65,14 +65,14 @@ class Player extends CollisionObject
 		for i in [0..200]
 			@parent.add new Particle(@root.position, 8)
 
-		pos = @root.position
-		parent = @parent
-		util.after 1000, ()->
-			bullet = new Weapons.Bullet(pos)
-			bullet.hp = 100
-			bullet.dp = 10
-			bullet.collisionRadius = 150
-			parent.add bullet
+		# pos = @root.position
+		# parent = @parent
+		# util.after 1000, ()->
+		# 	bullet = new Weapons.Bullet(pos)
+		# 	bullet.hp = 100
+		# 	bullet.dp = 10
+		# 	bullet.collisionRadius = 150
+		# 	parent.add bullet
 
 		# util.after 1250, Shump.game.resetPlayer
 		super()

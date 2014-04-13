@@ -28,7 +28,7 @@ updateDebug = ()->
 	$("#levelChildren").text """level.children = #{shump.Game.level.children.length}"""
 
 
-shump.Game.world.on "update", updateDebug
+# shump.Game.world.on "update", updateDebug
 
 
 

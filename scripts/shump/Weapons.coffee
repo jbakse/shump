@@ -1,8 +1,8 @@
 Score = require './Score.coffee'
-CollisionObject = require './CollisionObject.coffee'
+Collisions = require './Collisions.coffee'
 Particle = require './Particle.coffee'
 
-class exports.Bullet extends CollisionObject
+class exports.Bullet extends Collisions.CollisionObject
 	bulletTexture = THREE.ImageUtils.loadTexture "assets/weapons/bullet.png"
 	bulletMaterial = new THREE.MeshBasicMaterial
 			map: bulletTexture
@@ -42,7 +42,7 @@ class exports.Bullet extends CollisionObject
 			@parent.add new Particle(@root.position, 1)
 
 
-class exports.EnemyBullet extends CollisionObject
+class exports.EnemyBullet extends Collisions.CollisionObject
 	bulletTexture = THREE.ImageUtils.loadTexture "assets/weapons/bullet_2.png"
 	bulletMaterial = new THREE.MeshBasicMaterial
 			map: bulletTexture

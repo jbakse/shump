@@ -1,76 +1,86 @@
+util = require '../util.coffee'
 Tiled = require './Tiled.coffee'
 Player = require './Player.coffee'
-CollisionObject = require './CollisionObject.coffee'
 GameObject = require './GameObject.coffee'
+Collisions = require './Collisions.coffee'
 
 class Level extends GameObject
-	constructor: (@world)->
+	constructor: ()->
 		super()
 		
 		@colliders = []
 
+		# create scene
+		@scene = new THREE.Scene()
+		@scene.add @root
+
+		# camera
+		@camera = new THREE.PerspectiveCamera(45, 640 / 480, 1, 10000)	
+		@camera.position.z = util.layerSpacing() * 1
+		@scene.add @camera
+
+		# lights
 		@ambientLight = new THREE.AmbientLight(0xffffff);
 		@root.add(@ambientLight)
 
+
+		# insert player
+		@insertPlayer()
+
+
+		# level
+		Tiled.load('assets/level_1.json').then(@populate).catch (error)->
+	 		console.error error
+
+	populate: (map)=>
+		@root.add(map.layers.background.root)
+		map.layers.background.root.position.y = 7.5 * 2
+		map.layers.background.root.position.z =  util.layerSpacing() * -1
+		map.layers.background.root.scale.set(2, 2, 2)
+		
+		@root.add(map.layers.midground.root)
+		map.layers.midground.root.position.y = 7.5
+
+		for object in map.layers.enemies.objects
+			@add object
+
+	insertPlayer: ()=>
 		@player1 = new Player()
 		@add @player1
+		@player1.root.position.copy @camera.position
+		@player1.root.position.z = 0
 
-		
-		mapPromise = Tiled.load('assets/level_1.json')
-		readyPromise = mapPromise.then (map)=>
-			@root.add(map.layers.background.root)
-			map.layers.background.root.position.y = 7.5
-
-			@root.add(map.layers.midground.root)
-			map.layers.midground.root.position.y = 7.5
-
-			for object in map.layers.enemies.objects
-				@add object
-
-		
-		readyPromise.catch (error)->
-			console.error error
+		@player1.on "die", ()=>
+			util.after 1000, @insertPlayer
 
 	update: (delta)->
 		super(delta)
-		@world.camera.position.x += 1 * delta
+		@camera.position.x += 1 * delta
 		@player1.root.position.x += 1 * delta
 
 		for child in @children
-			if child.active == false and child.root.position.x < @world.camera.position.x + 10
+			if child.active == false and child.root.position.x < @camera.position.x + 10
 				child.activate()
 
-		@collisions()
+		Collisions.resolveCollisions(@colliders)
 
 	
 			
 
 	add: (gameObject)->
-		if gameObject instanceof CollisionObject
+		if gameObject instanceof Collisions.CollisionObject
 			@colliders.push gameObject 
 		return super(gameObject)
 
 	remove: (gameObject)->
 		i =  @colliders.indexOf(gameObject)
 		if i >= 0
-			@colliders.splice(i, 1);
-
+			@colliders.splice(i, 1)
 		return super(gameObject)
 
 
 
 
-	collisions: ()->
-		for a in @colliders
-			if a.active
-				for b in @colliders
-					if b.active
-						if a.colliderHitTypes.indexOf(b.colliderType) > -1
-							if @testCollision a, b
-								a.collideInto b
-
-	testCollision: (a, b)->
-		return a.root.position.distanceToSquared(b.root.position) < a.collisionRadius + b.collisionRadius
 
 
 exports.Level = Level
