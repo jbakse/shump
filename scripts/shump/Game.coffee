@@ -26,6 +26,11 @@ class Game extends Base
 		# clock
 		@clock = new THREE.Clock()
 
+		# create stats
+		@stats = new Stats();
+		@stats.domElement.style.position = 'absolute'
+		@stats.domElement.style.top = '0px'
+		$("#shump")[0].appendChild( @stats.domElement )
 		
 
 		# other screens
@@ -102,6 +107,9 @@ class Game extends Base
 
 		# render to screen
 		@render()
+
+		# update fps overlay
+		@stats.update()
 
 		# repeat
 		requestAnimationFrame @animate
