@@ -98,6 +98,9 @@
 
 	+-	Full Screen
 
+	-	Memory
+		-	Reduce Garbage Colleciton
+		
 -	Game Over Screen
 	+-	Return to Title Screen on Keypress   
 

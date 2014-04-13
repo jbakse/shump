@@ -27,11 +27,3 @@ $("#debug").append("""<span id="levelChildren">""")
 updateDebug = ()->
 	$("#levelChildren").text """level.children = #{shump.Game.level.children.length}"""
 
-
-# shump.Game.world.on "update", updateDebug
-
-
-
-# console.log "hidera"
-
-
