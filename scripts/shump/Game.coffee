@@ -36,10 +36,10 @@ class Game extends Base
 		@clock = new THREE.Clock()
 
 		# create stats
-		@stats = new Stats();
-		@stats.domElement.style.position = 'absolute'
-		@stats.domElement.style.top = '0px'
-		$("#shump")[0].appendChild( @stats.domElement )
+		# @stats = new Stats();
+		# @stats.domElement.style.position = 'absolute'
+		# @stats.domElement.style.top = '0px'
+		# $("#shump")[0].appendChild( @stats.domElement )
 		
 		# hud
 		Score.displayElement = $("""<h1>Score:</h1>""").appendTo $("#shump")
@@ -126,7 +126,7 @@ class Game extends Base
 		@render()
 
 		# update fps overlay
-		@stats.update()
+		# @stats.update()
 
 		# repeat
 		requestAnimationFrame @animate
